@@ -1,0 +1,233 @@
+<!doctype html>
+<html>
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cline</title>
+    <meta name="author" content="Cariad Eccleston" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📜</text></svg>" />
+    <style>body {
+  /* Thanks! https://systemfontstack.com */
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Ubuntu, roboto, noto, arial, sans-serif;
+}
+
+body {
+  --paragraph-spacing: 2rem;
+  --paragraph-spacing-smaller: 0.6rem;
+
+  --regular-margin: 43rem;
+  --grey: #ccc;
+
+  --code-padding: 2rem;
+
+  background-color: var(--white);
+  color: var(--black);
+
+  margin-top: 2rem;
+  margin-bottom: 8rem;
+
+  padding-left: 0.6rem;
+  padding-right: 0.6rem;
+  font-size: 1.2rem;
+}
+
+blockquote,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ol,
+p,
+ul {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: var(--regular-margin)
+}
+
+article > .highlight,
+article > .thtml {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: calc(var(--regular-margin) - (var(--code-padding)*2));
+}
+
+table {
+  margin-top: var(--paragraph-spacing);
+  margin-left: auto;
+  margin-right: auto;
+  width: var(--regular-margin);
+  max-width: var(--regular-margin);
+}
+
+table td,
+table th {
+  padding-left: 0;
+  padding-right: 1rem;
+  padding-top: 0.4rem;
+}
+
+table td:last-child,
+table th:last-child {
+  padding-right: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+ol,
+ul {
+  margin-top: var(--paragraph-spacing-smaller);
+  margin-bottom: 0;
+
+  max-width: calc(var(--regular-margin) - 2rem);
+}
+
+li {
+  margin-bottom: var(--paragraph-spacing-smaller);
+}
+
+h1 {
+  font-size: 4rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h1, h2, h3, h4, h5, h6, th {
+  border-bottom: 1px solid var(--grey);
+  padding-bottom: 0.3rem;
+}
+
+nav.toc {
+  font-size: 0.8em;
+  letter-spacing: 0.02rem;
+}
+
+nav.toc ol {
+  padding-left: 1rem;
+}
+
+nav.toc li ol {
+  margin-top: 0.5rem;
+}
+
+nav.toc li {
+  list-style: none;
+  margin-bottom: 0.5rem;
+}
+
+p, li {
+  line-height: 1.6;
+}
+
+.thtml {
+  overflow-x: auto;
+}
+
+blockquote {
+  font-style: italic;
+  border-left: 0.6rem solid var(--red);
+  padding-left: 1rem;
+}
+
+
+
+
+h2 > code,
+li > code,
+p > code {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 0.15em;
+  text-decoration-thickness: 0.12rem;
+  text-decoration-color: var(--yellow);
+}
+
+li > code,
+p > code {
+  font-weight: 500;
+}
+
+sup {
+  /* font-size: 0.9rem; */
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
+}
+
+p {
+  margin-bottom: 0;
+  margin-top: var(--paragraph-spacing);
+}
+
+code, pre {
+  font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+}
+
+.highlight, .thtml {
+  font-size: 0.9em;
+
+  background-color: #1B2A41;
+  color: #fff;
+
+  padding: var(--code-padding);
+  border-radius: 0.3em;
+
+  margin-top: var(--paragraph-spacing-smaller);
+  margin-bottom: var(--paragraph-spacing);
+
+  box-shadow: 0 0 0.6rem var(--grey)
+}
+
+
+.highlight > pre {
+  overflow-x: auto;
+  margin: 0;
+  padding: 0;
+}
+
+body > footer {
+  margin-top: 4rem;
+  margin-bottom: 2rem;
+}
+
+nav > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav > ul > li {
+  display: inline;
+  margin-right: 1rem;
+}
+
+
+h2+h3 {
+  margin-top: 0;
+}
+
+h3+h4 {
+  margin-top: 0;
+}
+
+h2, h3, h4, h5, h6 {
+  margin-bottom: var(--paragraph-spacing);
+  margin-top: calc(var(--paragraph-spacing) * 2);
+}
+</style>
+  </head>
+
+  <body>
+    <article>
+        <h1>📜 Cline</h1>
+<p><strong>Cline</strong> is a Python package for building command line interfaces.</p>
+<p><strong>Cline</strong> is easy, quick to use, and enables unit testing of your interface.</p>
+    </article>
+  </body>
+
+</html>
