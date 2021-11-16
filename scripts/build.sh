@@ -9,7 +9,7 @@ else
   version="-1.-1.-1"
 fi
 
-echo "${version}" > startifact/VERSION
+echo "${version}" > cline/VERSION
 
 rm -rf dist
 python setup.py bdist_wheel
