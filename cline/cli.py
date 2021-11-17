@@ -1,140 +1,19 @@
-from abc import ABC, abstractmethod, abstractproperty
-from argparse import ArgumentParser, Namespace
-from dataclasses import dataclass
+from abc import ABC, abstractproperty
+from argparse import ArgumentParser
 from functools import cached_property
 from logging import basicConfig, getLogger, root
 from sys import argv, stdout
-from typing import IO, Any, Dict, Generic, List, Literal, Optional, Type, TypeVar, Union
+from typing import IO, Any, List, Optional, Type, Union
 
-
-class ClineError(Exception):
-    pass
-
-
-class CannotMakeArguments(ClineError):
-    pass
-
-
-class NoAvailableTasks(ClineError):
-    pass
-
-
-class CommandLineArgumentError(ClineError):
-    pass
-
-
-class MissingArgumentError(CommandLineArgumentError):
-    pass
-
-
-class UnexpectedArgumentTypeError(CommandLineArgumentError):
-    pass
-
-
-class CommandLineArguments:
-    def __init__(self) -> None:
-        self._arguments: Dict[str, Union[str, bool, None]] = {}
-
-    def add_namespace(self, namespace: Namespace) -> None:
-        ns_dict = vars(namespace)
-        for key in ns_dict:
-            self._arguments[key] = ns_dict[key]
-
-    def add_unknown(self, args: List[str]) -> None:
-        for key in args:
-            self._arguments[key] = None
-
-    def get_bool(self, key: str) -> bool:
-        """
-        Raises:
-            MissingArgument: raised if the argument is not set
-            TypeError:       raised if the argument is not a bool
-        """
-
-        value = self._arguments.get(key, None)
-        if not value:
-            raise MissingArgumentError()
-        if not isinstance(value, bool):
-            raise TypeError()
-        return value
-
-    def get_string(self, key: str) -> str:
-        """
-        Raises:
-            MissingArgument: raised if the argument is not set
-            TypeError:       raised if the argument is not a string
-        """
-
-        value = self._arguments.get(key, None)
-        if not value:
-            raise MissingArgumentError()
-        if not isinstance(value, str):
-            raise TypeError()
-        return value
-
-
-@dataclass
-class CliTaskConfig:
-    exception_exit_code: int
-    out: IO[str]
-
-
-TTaskArgs = TypeVar("TTaskArgs")
-
-
-class Task(ABC, Generic[TTaskArgs]):
-    def __init__(self, args: TTaskArgs, config: CliTaskConfig) -> None:
-        self._args = args
-        self._config = config
-
-    @property
-    def args(self) -> TTaskArgs:
-        return self._args
-
-    @classmethod
-    @abstractmethod
-    def make_task_args(cls, args: CommandLineArguments) -> TTaskArgs:
-        """Make args"""
-
-    @abstractmethod
-    def invoke(self) -> int:
-        """
-        Invokes the task. Returns the shell exit code.
-        """
-
-    @property
-    def out(self) -> IO[str]:
-        return self._config.out
-
-    def safe_invoke(self) -> int:
-        try:
-            return self.invoke()
-        except KeyboardInterrupt:
-            return self._config.exception_exit_code
-        except Exception as ex:
-            self.out.write("🔥 ")
-            self.out.write(str(ex))
-            self.out.write("\n")
-            return self._config.exception_exit_code
-
-
-class EagerTask(Task[Literal[None]]):
-    @classmethod
-    def make_task_args(cls, args: CommandLineArguments) -> Literal[None]:
-        return None
-
-
-class FlagTask(Task[Literal[None]]):
-    @classmethod
-    @abstractmethod
-    def cli_flag(cls) -> str:
-        """Make args"""
-
-    @classmethod
-    def make_task_args(cls, args: CommandLineArguments) -> Literal[None]:
-        if not args.get_bool(cls.cli_flag()):
-            raise CannotMakeArguments()
-
+from cline.base_tasks import Task
+from cline.command_line_arguments import CommandLineArguments
+from cline.exceptions import (
+    CannotMakeArguments,
+    CommandLineArgumentError,
+    NoAvailableTasks,
+)
+from cline.tasks import HelpTask, VersionTask
+from cline.types import CliTaskConfig
 
 AnyTask = Task[Any]
 
@@ -144,10 +23,12 @@ class Cli(ABC):
         self,
         args: Optional[List[str]] = None,
         out: Optional[IO[str]] = None,
+        version: Optional[str] = None,
     ) -> None:
         self._args = args or argv[1:]
         self._logger = getLogger("cline")
         self._out = out or stdout
+        self._version = version
         self._logger.debug("%s initialised", self.__class__)
 
     @abstractproperty
@@ -174,7 +55,17 @@ class Cli(ABC):
         Gets the task for this CLI to perform.
         """
 
-        for task in self.tasks:
+        tasks: List[Type[AnyTask]] = [
+            *self.tasks,
+            HelpTask,
+        ]
+
+        if self._version:
+            tasks.append(VersionTask)
+
+        tasks.append(HelpTask)
+
+        for task in tasks:
             try:
                 self._logger.debug("asking %s to make arguments", task)
                 args = task.make_task_args(self.args)
@@ -189,8 +80,13 @@ class Cli(ABC):
         config = CliTaskConfig(
             exception_exit_code=self.exception_exit_code,
             out=self._out,
+            render_help=self.render_help,
+            version=self._version,
         )
         return task(args=args, config=config)
+
+    def render_help(self) -> None:
+        self._out.write(self.arg_parser.format_help())
 
     @abstractproperty
     def tasks(self) -> List[Type[AnyTask]]:
@@ -212,14 +108,19 @@ class Cli(ABC):
     def invoke_and_exit(
         cls,
         init_logging: bool = True,
-        log_level: Optional[int] = None,
+        log_level: Optional[Union[int, str]] = None,
+        version: Optional[str] = None,
     ) -> None:
         if init_logging:
-            basicConfig()
+            fmt = "%(levelname)s • %(name)s • %(pathname)s:%(lineno)d • %(message)s"
+            # extra_dict = {'className': 'NameOfClass'}
+            # logger = logging.getLogger('logger_name')
+
+            basicConfig(format=fmt)
 
         if log_level is not None:
             root.setLevel(log_level)
 
-        cli = cls()
+        cli = cls(version=version)
         exit_code = cli.task.safe_invoke()
         exit(exit_code)
