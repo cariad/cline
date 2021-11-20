@@ -4,68 +4,81 @@ orbs:
   codecov: codecov/codecov@3.0.0
 
 jobs:
-  cache:
+  lint_black:
     docker:
       - image: cimg/python:3.10.0
-    resource_class: medium
+    environment:
+    resource_class: xlarge
     steps:
       - checkout
       - restore_cache:
           keys:
             - pipenv-{{ checksum "Pipfile.lock" }}
-            - pipenv-
       - run: pipenv sync --dev
+      - run: pipenv run ./scripts/lint-black.sh
       - save_cache:
           key: pipenv-{{ checksum "Pipfile.lock" }}
           paths:
             - .venv
 
-  lint_black:
+  lint_example_package_types:
     docker:
       - image: cimg/python:3.10.0
     environment:
-    resource_class: medium
+    resource_class: xlarge
     steps:
       - checkout
       - restore_cache:
           keys:
             - pipenv-{{ checksum "Pipfile.lock" }}
-      - run: pipenv run ./scripts/lint-black.sh
+      - run: pipenv sync --dev
+      - restore_cache:
+          keys:
+            - mypy-example-package-{{ .Branch }}
+            - mypy-example-package-main
+      - run: pipenv run ./scripts/lint-package-types.sh
+      - save_cache:
+          key: mypy-example-package-{{ .Branch }}
+          paths:
+            - .mypy_cache
 
   lint_flake8:
     docker:
       - image: cimg/python:3.10.0
     environment:
-    resource_class: medium
+    resource_class: xlarge
     steps:
       - checkout
       - restore_cache:
           keys:
             - pipenv-{{ checksum "Pipfile.lock" }}
+      - run: pipenv sync --dev
       - run: pipenv run ./scripts/lint-flake8.sh
 
   lint_isort:
     docker:
       - image: cimg/python:3.10.0
     environment:
-    resource_class: medium
+    resource_class: xlarge
     steps:
       - checkout
       - restore_cache:
           keys:
             - pipenv-{{ checksum "Pipfile.lock" }}
+      - run: pipenv sync --dev
       - run: pipenv run ./scripts/lint-isort.sh
 
   lint_package_types:
     docker:
       - image: cimg/python:3.10.0
     environment:
-    resource_class: medium
+    resource_class: xlarge
     steps:
       - checkout
       - restore_cache:
           keys:
             - pipenv-{{ checksum "Pipfile.lock" }}
+      - run: pipenv sync --dev
       - restore_cache:
           keys:
             - mypy-package-{{ .Branch }}
@@ -80,24 +93,26 @@ jobs:
     docker:
       - image: cimg/python:3.10.0
     environment:
-    resource_class: medium
+    resource_class: xlarge
     steps:
       - checkout
       - restore_cache:
           keys:
             - pipenv-{{ checksum "Pipfile.lock" }}
+      - run: pipenv sync --dev
       - run: pipenv run ./scripts/lint-shell.sh
 
   lint_test_types:
     docker:
       - image: cimg/python:3.10.0
     environment:
-    resource_class: medium
+    resource_class: xlarge
     steps:
       - checkout
       - restore_cache:
           keys:
             - pipenv-{{ checksum "Pipfile.lock" }}
+      - run: pipenv sync --dev
       - restore_cache:
           keys:
             - mypy-test-{{ .Branch }}
@@ -112,24 +127,26 @@ jobs:
     docker:
       - image: cimg/python:3.10.0
     environment:
-    resource_class: medium
+    resource_class: xlarge
     steps:
       - checkout
       - restore_cache:
           keys:
             - pipenv-{{ checksum "Pipfile.lock" }}
+      - run: pipenv sync --dev
       - run: pipenv run ./scripts/lint-yaml.sh
 
   test:
     docker:
       - image: cimg/python:3.10.0
     environment:
-    resource_class: medium
+    resource_class: xlarge
     steps:
       - checkout
       - restore_cache:
           keys:
             - pipenv-{{ checksum "Pipfile.lock" }}
+      - run: pipenv sync --dev
       - run: pipenv run ./scripts/test.sh
       - codecov/upload:
           file: coverage.xml
@@ -138,12 +155,13 @@ jobs:
     docker:
       - image: cimg/python:3.10.0
     environment:
-    resource_class: medium
+    resource_class: xlarge
     steps:
       - checkout
       - restore_cache:
           keys:
             - pipenv-{{ checksum "Pipfile.lock" }}
+      - run: pipenv sync --dev
       - run: pipenv run ./build.sh
       - run: pip install dist/*
       - run: if [[ -z "${CIRCLE_TAG}" ]]; then circleci-agent step halt; fi
@@ -152,49 +170,30 @@ jobs:
 workflows:
   default:
     jobs:
-      - cache:
-          context:
-            - python
-          filters:
-            branches:
-              only: /.*/
-            tags:
-              only: /.*/
       - lint_black:
           context:
             - python
-          requires:
-            - cache
+      - lint_example_package_types:
+          context:
+            - python
       - lint_flake8:
           context:
             - python
-          requires:
-            - cache
       - lint_isort:
           context:
             - python
-          requires:
-            - cache
       - lint_package_types:
           context:
             - python
-          requires:
-            - cache
       - lint_shell:
           context:
             - python
-          requires:
-            - cache
       - lint_test_types:
           context:
             - python
-          requires:
-            - cache
       - lint_yaml:
           context:
             - python
-          requires:
-            - cache
       - test:
           context:
             - python
@@ -203,8 +202,6 @@ workflows:
               only: /.*/
             tags:
               only: /.*/
-          requires:
-            - cache
       - build:
           context:
             - python

@@ -1,20 +1,18 @@
-import importlib.resources as pkg_resources
+from importlib.resources import open_text
 
-from cline.base_tasks import EagerTask, FlagTask, Task
-from cline.cli import AnyTask, Cli
-from cline.command_line_arguments import CommandLineArguments
-from cline.exceptions import CannotMakeArguments, CommandLineArgumentError
+from cline.cli import Cli
+from cline.command_line_arguments import CommandLineArgs
+from cline.exceptions import CannotMakeArguments
+from cline.tasks import AnyTask, AnyTaskType, Task
 
-with pkg_resources.open_text(__package__, "VERSION") as t:
+with open_text(__package__, "VERSION") as t:
     __version__ = t.readline().strip()
 
 __all__ = [
     "AnyTask",
-    "CannotMakeArguments",
+    "AnyTaskType",
     "Cli",
-    "CommandLineArguments",
-    "CommandLineArgumentError",
-    "FlagTask",
+    "CommandLineArgs",
+    "CannotMakeArguments",
     "Task",
-    "EagerTask",
 ]

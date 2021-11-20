@@ -2,21 +2,20 @@ class ClineError(Exception):
     pass
 
 
-class CannotMakeArguments(ClineError):
-    pass
-
-
 class NoAvailableTasks(ClineError):
     pass
 
 
-class CommandLineArgumentError(ClineError):
+class CannotMakeArguments(ClineError):
     pass
 
 
-class MissingArgumentError(CommandLineArgumentError):
-    pass
+class UserNeedsHelp(ClineError):
+    def __init__(self, explicit: bool) -> None:
+        super().__init__("user needs help")
+        self.explicit = explicit
 
 
-class UnexpectedArgumentTypeError(CommandLineArgumentError):
-    pass
+class UserNeedsVersion(ClineError):
+    def __init__(self) -> None:
+        super().__init__("user needs version")

@@ -1,12 +1,14 @@
 from argparse import Namespace
-from typing import Dict, List, Union
+from typing import Dict, List, Optional, Union
 
-from cline.exceptions import MissingArgumentError
+from cline.exceptions import CannotMakeArguments
+
+ArgumentsType = Dict[str, Union[str, bool, None]]
 
 
-class CommandLineArguments:
-    def __init__(self) -> None:
-        self._arguments: Dict[str, Union[str, bool, None]] = {}
+class CommandLineArgs:
+    def __init__(self, args: Optional[ArgumentsType] = None) -> None:
+        self._arguments = args or {}
 
     def add_namespace(self, namespace: Namespace) -> None:
         ns_dict = vars(namespace)
@@ -17,30 +19,55 @@ class CommandLineArguments:
         for key in args:
             self._arguments[key] = None
 
-    def get_bool(self, key: str) -> bool:
+    def assert_true(self, key: str) -> None:
         """
-        Raises:
-            MissingArgument: raised if the argument is not set
-            TypeError:       raised if the argument is not a bool
+        Asserts that the command line flag `key` is truthy.
+
+        Raises `CommandLineArgumentError` if the argument is not set, not a boolean or
+        not truthy.
+        """
+
+        if not self.get_bool(key):
+            raise CannotMakeArguments()
+
+    def get_bool(self, key: str, default: Optional[bool] = None) -> bool:
+        """
+        Gets the command line argument `key` as a boolean.
+
+        Returns `default` if the argument is not set but `default` is.
+
+        Raises `CommandLineArgumentError` if `default` is not set and the argument is
+        not set or not a boolean.
         """
 
         value = self._arguments.get(key, None)
-        if not value:
-            raise MissingArgumentError()
+
+        if value is None and default is not None:
+            return default
         if not isinstance(value, bool):
-            raise TypeError()
+            raise CannotMakeArguments()
         return value
+
+    def get_integer(self, key: str) -> int:
+        """
+        Gets the command line argument `key` as an integer.
+
+        Raises `CommandLineArgumentError` if the argument is not set or not an integer.
+        """
+
+        try:
+            return int(self.get_string(key))
+        except ValueError:
+            raise CannotMakeArguments()
 
     def get_string(self, key: str) -> str:
         """
-        Raises:
-            MissingArgument: raised if the argument is not set
-            TypeError:       raised if the argument is not a string
+        Gets the command line argument `key` as a string.
+
+        Raises `CommandLineArgumentError` if the argument is not set or not a string.
         """
 
         value = self._arguments.get(key, None)
-        if not value:
-            raise MissingArgumentError()
         if not isinstance(value, str):
-            raise TypeError()
+            raise CannotMakeArguments()
         return value

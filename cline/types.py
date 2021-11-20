@@ -1,10 +1,9 @@
-from dataclasses import dataclass
-from typing import IO, Callable, Optional
+# from dataclasses import dataclass
+# from typing import IO, Optional
+# from cline.cli_protocol import CliProtocol
 
-
-@dataclass
-class CliTaskConfig:
-    exception_exit_code: int
-    out: IO[str]
-    render_help: Callable[[], None]
-    version: Optional[str]
+# @dataclass
+# class CliTaskConfig:
+#     cli: CliProtocol
+#     out: IO[str]
+#     version: Optional[str]

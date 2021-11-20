@@ -1,12 +1,12 @@
-from cline.base_tasks import FlagTask
+from cline.command_line_arguments import CommandLineArgs
+from cline.exceptions import UserNeedsVersion
+from cline.tasks.task import Task
 
 
-class VersionTask(FlagTask):
+class VersionTask(Task[None]):
     def invoke(self) -> int:
-        self.out.write(self._config.version or "unknown")
-        self.out.write("\n")
-        return 0
+        raise UserNeedsVersion()
 
     @classmethod
-    def cli_flag(cls) -> str:
-        return "version"
+    def make_args(cls, args: CommandLineArgs) -> None:
+        args.assert_true("version")
