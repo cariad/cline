@@ -10,12 +10,12 @@
 
 ### Example 1: Summing two integers
 
-_The source code for this example is available at [github.com/cariad/cline/blob/main/examples/sum](https://github.com/cariad/cline/blob/main/examples/sum). The tests are in [github.com/cariad/cline/blob/main/tests/examples/sum](https://github.com/cariad/cline/blob/main/tests/examples/sum)._
+_The source code for this example is available at [github.com/cariad/cline/blob/main/examples/example01](https://github.com/cariad/cline/blob/main/examples/example01). The tests are in [github.com/cariad/cline/blob/main/tests/examples/example01](https://github.com/cariad/cline/blob/main/tests/examples/example01)._
 
 In this example, we'll build an application that sums two integers on the command line then prints the result:
 
 ```bash
-python -m examples.sum 1 3
+python -m examples.example01 1 3
 ```
 
 <!--edition-exec as=markdown fence=backticks host=shell range=start-->
@@ -153,7 +153,7 @@ Back in your CLI class, override `register_tasks()` to register `SumTask`:
 ```python
 from argparse import ArgumentParser
 from cline.cli import ArgumentParserCli
-from examples.sum.sum import SumTask
+from examples.example01.sum import SumTask
 
 class ExampleCli(ArgumentParserCli):
     def make_parser(self) -> ArgumentParser:
@@ -181,7 +181,7 @@ class ExampleCli(ArgumentParserCli):
 Finally, create a `__main__.py` script that calls your CLI's `invoke_and_exit()` method:
 
 ```python
-from examples.sum.cli import ExampleCli
+from examples.example01.cli import ExampleCli
 
 def entry() -> None:
     ExampleCli.invoke_and_exit()
@@ -199,12 +199,12 @@ python -m examples.sum 1 3
 <!--edition-exec as=markdown fence=backticks host=shell range=start-->
 
 ```text
-4
+
 ```
 
 <!--edition-exec range=end-->
 
-#### 4. Unit testing
+#### 5. Unit testing
 
 Cline was designed to support easy high coverage of your work.
 
@@ -212,7 +212,7 @@ To test your task's `make_args()` function, construct your own `CommandLineArgum
 
 ```python
 from cline import CommandLineArguments
-from examples.sum.sum import SumTask, NumberArgs
+from examples.example01.sum import SumTask, NumberArgs
 
 def test_make_args() -> None:
     cli_args = CommandLineArguments(
@@ -230,7 +230,7 @@ To test your task's `invoke()` function, construct your own strongly-typed argum
 
 ```python
 from io import StringIO
-from examples.sum.sum import SumTask, NumberArgs
+from examples.example01.sum import SumTask, NumberArgs
 
 def test_invoke() -> None:
     out = StringIO()
@@ -247,8 +247,8 @@ from typing import List, Type
 from pytest import mark
 
 from cline import AnyTask
-from examples.sum.cli import ExampleCli
-from examples.sum.tasks.sum import NumberArgs, SumTask
+from examples.example01.cli import ExampleCli
+from examples.example01.tasks.sum import NumberArgs, SumTask
 
 @mark.parametrize(
     "args, expect_task, expect_args",
@@ -392,14 +392,7 @@ python -m examples.sum
 <!--edition-exec as=markdown fence=backticks host=shell range=start-->
 
 ```text
-usage: __main__.py [-h] [a] [b]
 
-positional arguments:
-  a           first number
-  b           second number
-
-options:
-  -h, --help  show this help message and exit
 ```
 
 <!--edition-exec range=end-->
@@ -470,51 +463,28 @@ Note that:
 
 ## API reference
 
-### `cline.cli.Cli[TParser]` abstract class
+The package is typed and self-documented. If any hints or docstrings are could use some clarity, please raise an issue.
 
-The `Cli` abstract class is the entry point and manager of the tasks invoked on behalf of the host application.
+## Project
 
-`Cli` isn't opinionated on how you choose to parse command line arguments. The `TParser` generic type describes whichever parser you choose. A `ArgumentParserCli` class is provided which uses Python's baked-in `argparse.ArgumentParser`.
+### Contributing
 
-### `cline.cli.ArgumentParserCli` abstract class
+To contribute a bug report, enhancement or feature request, please raise an issue at [github.com/cariad/cline/issues](https://github.com/cariad/cline/issues).
 
-`ArgumentParserCli` is an implementation of `Cli` that uses Python's baked-in `argparse.ArgumentParser` to parse arguments.
+If you want to contribute a code change, please raise an issue first so we can chat about the direction you want to take.
 
-The functions that must be overridden and implemented are:
+### Licence
 
-- `make_parser()` must return an instance of `argparse.ArgumentParser` configured for your project.
-- `register_tasks()` must return the ordered list of `Task` classes to be considered for invocation.
+Edition is released at [github.com/cariad/cline](https://github.com/cariad/cline) under the MIT Licence.
 
-### `cline.Task[TTaskArgs]` abstract class
+See [LICENSE](https://github.com/cariad/cline/blob/main/LICENSE) for more information.
 
-The `Task` abstract class represents a type of work that can be invoked via the command line.
+### Author
 
-`Task` separates the two concerns of:
+Hello! 👋 I'm **Cariad Eccleston** and I'm a freelance DevOps and backend engineer. My contact details are available on my personal wiki at [cariad.earth](https://cariad.earth).
 
-1. Converting the user-entered command line arguments to strongly-typed arguments
-1. Operating on strongly-typed arguments
+Please consider supporting my open source projects by [sponsoring me on GitHub](https://github.com/sponsors/cariad/).
 
-The `TTaskArgs` generic type describes a task's strongly-typed arguments.
-
-The functions that must be overridden and implemented are:
-
-- `make_args(args: CommandLineArguments)` must interrogate the given command line arguments and return strongly-typed arguments. Raise `CannotMakeArguments` if the given command line arguments cannot be used to prepare this task.
-- `invoke()` must perform the task's work then return the shell exit code.
-
-The following properties are available during invocation:
-
-- `self.args` gets the task's strongly-typed arguments.
-- `self.out` gets the output writer.
-
-### `cline.CommandLineArguments` class
-
-A `CommandLineArguments` instance will be passed to `Task.make_args` to help you interpret the user-entered command line arguments.
-
-- `assert_true(key: str)` asserts that the command line flag is truthy. Raises `CannotMakeArguments` if not.
-- `get_bool(key: str, default: Optional[bool] = None)` gets the boolean value of the given argument. If the argument isn't set to a boolean value and a default value isn't specified then `CannotMakeArguments` is raised.
-- `get_integer(key: str)` gets the integer value of the given argument. If the argument isn't set to a integer value then `CannotMakeArguments` is raised.
-- `get_string(key: str)` gets the string value of the given argument. If the argument isn't set to a string value then `CannotMakeArguments` is raised.
-
-## Acknowledgements
+### Acknowledgements
 
 - This documentation was pressed with [Edition](https://cariad.github.io/edition/).

@@ -346,12 +346,12 @@ h2, h3, h4, h5, h6 {
         <h1>📜 Cline</h1>
 <p><strong>Cline</strong> is a Python package that helps you build command line applications.</p>
 <p><strong>Cline</strong> separates the two concerns of "understanding the command line arguments you receive" and "operating on strongly-typed arguments" and helps you to write clean, testable tasks.</p>
-<p><nav class="toc"><ol><li><a href="#examples">Examples</a><ol><li><a href="#example-1-summing-two-integers">Example 1: Summing two integers</a></li><li><a href="#example-2-adding-support-for-subtraction">Example 2: Adding support for subtraction</a></li><li><a href="#example-3-supporting-help-and-versions">Example 3: Supporting help and versions</a></li><li><a href="#example-4-making-your-package-executable-after-installing">Example 4: Making your package executable after installing</a></li></ol></li><li><a href="#api-reference">API reference</a><ol><li><a href="#clinecliclitparser-abstract-class"><code>cline.cli.Cli[TParser]</code> abstract class</a></li><li><a href="#clinecliargumentparsercli-abstract-class"><code>cline.cli.ArgumentParserCli</code> abstract class</a></li><li><a href="#clinetaskttaskargs-abstract-class"><code>cline.Task[TTaskArgs]</code> abstract class</a></li><li><a href="#clinecommandlinearguments-class"><code>cline.CommandLineArguments</code> class</a></li></ol></li><li><a href="#acknowledgements">Acknowledgements</a></li></ol></nav></p>
+<p><nav class="toc"><ol><li><a href="#examples">Examples</a><ol><li><a href="#example-1-summing-two-integers">Example 1: Summing two integers</a></li><li><a href="#example-2-adding-support-for-subtraction">Example 2: Adding support for subtraction</a></li><li><a href="#example-3-supporting-help-and-versions">Example 3: Supporting help and versions</a></li><li><a href="#example-4-making-your-package-executable-after-installing">Example 4: Making your package executable after installing</a></li></ol></li><li><a href="#api-reference">API reference</a></li><li><a href="#project">Project</a><ol><li><a href="#contributing">Contributing</a></li><li><a href="#licence">Licence</a></li><li><a href="#author">Author</a></li><li><a href="#acknowledgements">Acknowledgements</a></li></ol></li></ol></nav></p>
 <h2>Examples<a id="examples"></a></h2>
 <h3>Example 1: Summing two integers<a id="example-1-summing-two-integers"></a></h3>
-<p><em>The source code for this example is available at <a href="https://github.com/cariad/cline/blob/main/examples/sum">github.com/cariad/cline/blob/main/examples/sum</a>. The tests are in <a href="https://github.com/cariad/cline/blob/main/tests/examples/sum">github.com/cariad/cline/blob/main/tests/examples/sum</a>.</em></p>
+<p><em>The source code for this example is available at <a href="https://github.com/cariad/cline/blob/main/examples/example01">github.com/cariad/cline/blob/main/examples/example01</a>. The tests are in <a href="https://github.com/cariad/cline/blob/main/tests/examples/example01">github.com/cariad/cline/blob/main/tests/examples/example01</a>.</em></p>
 <p>In this example, we'll build an application that sums two integers on the command line then prints the result:</p>
-<div class="highlight"><pre><span></span>python -m examples.sum <span class="m">1</span> <span class="m">3</span>
+<div class="highlight"><pre><span></span>python -m examples.example01 <span class="m">1</span> <span class="m">3</span>
 </pre></div>
 
 
@@ -466,7 +466,7 @@ h2, h3, h4, h5, h6 {
 <p>Back in your CLI class, override <code>register_tasks()</code> to register <code>SumTask</code>:</p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">ArgumentParser</span>
 <span class="kn">from</span> <span class="nn">cline.cli</span> <span class="kn">import</span> <span class="n">ArgumentParserCli</span>
-<span class="kn">from</span> <span class="nn">examples.sum.sum</span> <span class="kn">import</span> <span class="n">SumTask</span>
+<span class="kn">from</span> <span class="nn">examples.example01.sum</span> <span class="kn">import</span> <span class="n">SumTask</span>
 
 <span class="k">class</span> <span class="nc">ExampleCli</span><span class="p">(</span><span class="n">ArgumentParserCli</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">make_parser</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-></span> <span class="n">ArgumentParser</span><span class="p">:</span>
@@ -491,7 +491,7 @@ h2, h3, h4, h5, h6 {
 
 <h4>4. Creating a CLI entry point<a id="4-creating-a-cli-entry-point"></a></h4>
 <p>Finally, create a <code>__main__.py</code> script that calls your CLI's <code>invoke_and_exit()</code> method:</p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">examples.sum.cli</span> <span class="kn">import</span> <span class="n">ExampleCli</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">examples.example01.cli</span> <span class="kn">import</span> <span class="n">ExampleCli</span>
 
 <span class="k">def</span> <span class="nf">entry</span><span class="p">()</span> <span class="o">-></span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">ExampleCli</span><span class="o">.</span><span class="n">invoke_and_exit</span><span class="p">()</span>
@@ -506,15 +506,15 @@ h2, h3, h4, h5, h6 {
 
 
 
-<pre class="nohighlight thtml"><code class="thtml-code">4<br /></code></pre>
+<pre class="nohighlight thtml"><code class="thtml-code">/home/cariad/cline/.venv/bin/python: No module named examples.sum<br /></code></pre>
 
 
 
-<h4>4. Unit testing<a id="4-unit-testing"></a></h4>
+<h4>5. Unit testing<a id="5-unit-testing"></a></h4>
 <p>Cline was designed to support easy high coverage of your work.</p>
 <p>To test your task's <code>make_args()</code> function, construct your own <code>CommandLineArguments</code> instance with the command line arguments to test, then verify that <code>make_args()</code> returns the strongly-typed arguments that you'd expect:</p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cline</span> <span class="kn">import</span> <span class="n">CommandLineArguments</span>
-<span class="kn">from</span> <span class="nn">examples.sum.sum</span> <span class="kn">import</span> <span class="n">SumTask</span><span class="p">,</span> <span class="n">NumberArgs</span>
+<span class="kn">from</span> <span class="nn">examples.example01.sum</span> <span class="kn">import</span> <span class="n">SumTask</span><span class="p">,</span> <span class="n">NumberArgs</span>
 
 <span class="k">def</span> <span class="nf">test_make_args</span><span class="p">()</span> <span class="o">-></span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">cli_args</span> <span class="o">=</span> <span class="n">CommandLineArguments</span><span class="p">(</span>
@@ -530,7 +530,7 @@ h2, h3, h4, h5, h6 {
 
 <p>To test your task's <code>invoke()</code> function, construct your own strongly-typed arguments and an output writer then assert that the shell exit code and written response are as you expect:</p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">StringIO</span>
-<span class="kn">from</span> <span class="nn">examples.sum.sum</span> <span class="kn">import</span> <span class="n">SumTask</span><span class="p">,</span> <span class="n">NumberArgs</span>
+<span class="kn">from</span> <span class="nn">examples.example01.sum</span> <span class="kn">import</span> <span class="n">SumTask</span><span class="p">,</span> <span class="n">NumberArgs</span>
 
 <span class="k">def</span> <span class="nf">test_invoke</span><span class="p">()</span> <span class="o">-></span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">out</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
@@ -545,8 +545,8 @@ h2, h3, h4, h5, h6 {
 <span class="kn">from</span> <span class="nn">pytest</span> <span class="kn">import</span> <span class="n">mark</span>
 
 <span class="kn">from</span> <span class="nn">cline</span> <span class="kn">import</span> <span class="n">AnyTask</span>
-<span class="kn">from</span> <span class="nn">examples.sum.cli</span> <span class="kn">import</span> <span class="n">ExampleCli</span>
-<span class="kn">from</span> <span class="nn">examples.sum.tasks.sum</span> <span class="kn">import</span> <span class="n">NumberArgs</span><span class="p">,</span> <span class="n">SumTask</span>
+<span class="kn">from</span> <span class="nn">examples.example01.cli</span> <span class="kn">import</span> <span class="n">ExampleCli</span>
+<span class="kn">from</span> <span class="nn">examples.example01.tasks.sum</span> <span class="kn">import</span> <span class="n">NumberArgs</span><span class="p">,</span> <span class="n">SumTask</span>
 
 <span class="nd">@mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span>
     <span class="s2">"args, expect_task, expect_args"</span><span class="p">,</span>
@@ -656,7 +656,7 @@ python -m examples.subtract --sub <span class="m">8</span> <span class="m">5</sp
 
 
 
-<pre class="nohighlight thtml"><code class="thtml-code">usage: __main__.py [-h] [a] [b]<br /><br />positional arguments:<br />  a           first number<br />  b           second number<br /><br />options:<br />  -h, --help  show this help message and exit<br /></code></pre>
+<pre class="nohighlight thtml"><code class="thtml-code">/home/cariad/cline/.venv/bin/python: No module named examples.sum<br /></code></pre>
 
 
 
@@ -713,43 +713,18 @@ python -m examples.subtract --sub <span class="m">8</span> <span class="m">5</sp
 <li><code>entry</code> is the name of the function to run inside <code>__main__.py</code></li>
 </ul>
 <h2>API reference<a id="api-reference"></a></h2>
-<h3><code>cline.cli.Cli[TParser]</code> abstract class<a id="clinecliclitparser-abstract-class"></a></h3>
-<p>The <code>Cli</code> abstract class is the entry point and manager of the tasks invoked on behalf of the host application.</p>
-<p><code>Cli</code> isn't opinionated on how you choose to parse command line arguments. The <code>TParser</code> generic type describes whichever parser you choose. A <code>ArgumentParserCli</code> class is provided which uses Python's baked-in <code>argparse.ArgumentParser</code>.</p>
-<h3><code>cline.cli.ArgumentParserCli</code> abstract class<a id="clinecliargumentparsercli-abstract-class"></a></h3>
-<p><code>ArgumentParserCli</code> is an implementation of <code>Cli</code> that uses Python's baked-in <code>argparse.ArgumentParser</code> to parse arguments.</p>
-<p>The functions that must be overridden and implemented are:</p>
-<ul>
-<li><code>make_parser()</code> must return an instance of <code>argparse.ArgumentParser</code> configured for your project.</li>
-<li><code>register_tasks()</code> must return the ordered list of <code>Task</code> classes to be considered for invocation.</li>
-</ul>
-<h3><code>cline.Task[TTaskArgs]</code> abstract class<a id="clinetaskttaskargs-abstract-class"></a></h3>
-<p>The <code>Task</code> abstract class represents a type of work that can be invoked via the command line.</p>
-<p><code>Task</code> separates the two concerns of:</p>
-<ol>
-<li>Converting the user-entered command line arguments to strongly-typed arguments</li>
-<li>Operating on strongly-typed arguments</li>
-</ol>
-<p>The <code>TTaskArgs</code> generic type describes a task's strongly-typed arguments.</p>
-<p>The functions that must be overridden and implemented are:</p>
-<ul>
-<li><code>make_args(args: CommandLineArguments)</code> must interrogate the given command line arguments and return strongly-typed arguments. Raise <code>CannotMakeArguments</code> if the given command line arguments cannot be used to prepare this task.</li>
-<li><code>invoke()</code> must perform the task's work then return the shell exit code.</li>
-</ul>
-<p>The following properties are available during invocation:</p>
-<ul>
-<li><code>self.args</code> gets the task's strongly-typed arguments.</li>
-<li><code>self.out</code> gets the output writer.</li>
-</ul>
-<h3><code>cline.CommandLineArguments</code> class<a id="clinecommandlinearguments-class"></a></h3>
-<p>A <code>CommandLineArguments</code> instance will be passed to <code>Task.make_args</code> to help you interpret the user-entered command line arguments.</p>
-<ul>
-<li><code>assert_true(key: str)</code> asserts that the command line flag is truthy. Raises <code>CannotMakeArguments</code> if not.</li>
-<li><code>get_bool(key: str, default: Optional[bool] = None)</code> gets the boolean value of the given argument. If the argument isn't set to a boolean value and a default value isn't specified then <code>CannotMakeArguments</code> is raised.</li>
-<li><code>get_integer(key: str)</code> gets the integer value of the given argument. If the argument isn't set to a integer value then <code>CannotMakeArguments</code> is raised.</li>
-<li><code>get_string(key: str)</code> gets the string value of the given argument. If the argument isn't set to a string value then <code>CannotMakeArguments</code> is raised.</li>
-</ul>
-<h2>Acknowledgements<a id="acknowledgements"></a></h2>
+<p>The package is typed and self-documented. If any hints or docstrings are could use some clarity, please raise an issue.</p>
+<h2>Project<a id="project"></a></h2>
+<h3>Contributing<a id="contributing"></a></h3>
+<p>To contribute a bug report, enhancement or feature request, please raise an issue at <a href="https://github.com/cariad/cline/issues">github.com/cariad/cline/issues</a>.</p>
+<p>If you want to contribute a code change, please raise an issue first so we can chat about the direction you want to take.</p>
+<h3>Licence<a id="licence"></a></h3>
+<p>Edition is released at <a href="https://github.com/cariad/cline">github.com/cariad/cline</a> under the MIT Licence.</p>
+<p>See <a href="https://github.com/cariad/cline/blob/main/LICENSE">LICENSE</a> for more information.</p>
+<h3>Author<a id="author"></a></h3>
+<p>Hello! 👋 I'm <strong>Cariad Eccleston</strong> and I'm a freelance DevOps and backend engineer. My contact details are available on my personal wiki at <a href="https://cariad.earth">cariad.earth</a>.</p>
+<p>Please consider supporting my open source projects by <a href="https://github.com/sponsors/cariad/">sponsoring me on GitHub</a>.</p>
+<h3>Acknowledgements<a id="acknowledgements"></a></h3>
 <ul>
 <li>This documentation was pressed with <a href="https://cariad.github.io/edition/">Edition</a>.</li>
 </ul>

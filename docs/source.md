@@ -16,12 +16,12 @@ title: Cline
 
 ### Example 1: Summing two integers
 
-_The source code for this example is available at [github.com/cariad/cline/blob/main/examples/sum](https://github.com/cariad/cline/blob/main/examples/sum). The tests are in [github.com/cariad/cline/blob/main/tests/examples/sum](https://github.com/cariad/cline/blob/main/tests/examples/sum)._
+_The source code for this example is available at [github.com/cariad/cline/blob/main/examples/example01](https://github.com/cariad/cline/blob/main/examples/example01). The tests are in [github.com/cariad/cline/blob/main/tests/examples/example01](https://github.com/cariad/cline/blob/main/tests/examples/example01)._
 
 In this example, we'll build an application that sums two integers on the command line then prints the result:
 
 ```bash
-python -m examples.sum 1 3
+python -m examples.example01 1 3
 ```
 
 <!--edition-exec-->
@@ -153,7 +153,7 @@ Back in your CLI class, override `register_tasks()` to register `SumTask`:
 ```python
 from argparse import ArgumentParser
 from cline.cli import ArgumentParserCli
-from examples.sum.sum import SumTask
+from examples.example01.sum import SumTask
 
 class ExampleCli(ArgumentParserCli):
     def make_parser(self) -> ArgumentParser:
@@ -181,7 +181,7 @@ class ExampleCli(ArgumentParserCli):
 Finally, create a `__main__.py` script that calls your CLI's `invoke_and_exit()` method:
 
 ```python
-from examples.sum.cli import ExampleCli
+from examples.example01.cli import ExampleCli
 
 def entry() -> None:
     ExampleCli.invoke_and_exit()
@@ -198,7 +198,7 @@ python -m examples.sum 1 3
 
 <!--edition-exec-->
 
-#### 4. Unit testing
+#### 5. Unit testing
 
 Cline was designed to support easy high coverage of your work.
 
@@ -206,7 +206,7 @@ To test your task's `make_args()` function, construct your own `CommandLineArgum
 
 ```python
 from cline import CommandLineArguments
-from examples.sum.sum import SumTask, NumberArgs
+from examples.example01.sum import SumTask, NumberArgs
 
 def test_make_args() -> None:
     cli_args = CommandLineArguments(
@@ -224,7 +224,7 @@ To test your task's `invoke()` function, construct your own strongly-typed argum
 
 ```python
 from io import StringIO
-from examples.sum.sum import SumTask, NumberArgs
+from examples.example01.sum import SumTask, NumberArgs
 
 def test_invoke() -> None:
     out = StringIO()
@@ -241,8 +241,8 @@ from typing import List, Type
 from pytest import mark
 
 from cline import AnyTask
-from examples.sum.cli import ExampleCli
-from examples.sum.tasks.sum import NumberArgs, SumTask
+from examples.example01.cli import ExampleCli
+from examples.example01.tasks.sum import NumberArgs, SumTask
 
 @mark.parametrize(
     "args, expect_task, expect_args",
@@ -262,15 +262,15 @@ def test(
 
 ### Example 2: Adding support for subtraction
 
-_The source code for this example is available at [github.com/cariad/cline/blob/main/examples/subtract](https://github.com/cariad/cline/blob/main/examples/subtract). The tests are in [github.com/cariad/cline/blob/main/tests/examples/subtract](https://github.com/cariad/cline/blob/main/tests/examples/subtract)._
+_The source code for this example is available at [github.com/cariad/cline/blob/main/examples/example02](https://github.com/cariad/cline/blob/main/examples/example02). The tests are in [github.com/cariad/cline/blob/main/tests/examples/example02](https://github.com/cariad/cline/blob/main/tests/examples/example02)._
 
 In this example, we'll build on Example 1 to allow integers to be subtracted. We'll add `--sum` and `--sub` flags to describe that we want to do.
 
 For example:
 
 ```bash
-python -m examples.subtract --sum 8 5
-python -m examples.subtract --sub 8 5
+python -m examples.example02 --sum 8 5
+python -m examples.example02 --sub 8 5
 ```
 
 <!--edition-exec-->
@@ -341,8 +341,8 @@ Open your CLI class and register `SubtractTask`:
 ```python
 def register_tasks(self) -> RegisteredTasks:
     return [
-        examples.full.tasks.SubtractTask,
-        examples.full.tasks.SumTask,
+        examples.example02.tasks.SubtractTask,
+        examples.example02.tasks.SumTask,
     ]
 ```
 
@@ -357,7 +357,7 @@ python -m examples.subtract --sub 8 5
 
 ### Example 3: Supporting help and versions
 
-_The source code for this example is available at [github.com/cariad/cline/blob/main/examples/full](https://github.com/cariad/cline/blob/main/examples/full). The tests are in [github.com/cariad/cline/blob/main/tests/examples/full](https://github.com/cariad/cline/blob/main/tests/examples/full)._
+_The source code for this example is available at [github.com/cariad/cline/blob/main/examples/example03](https://github.com/cariad/cline/blob/main/examples/example03). The tests are in [github.com/cariad/cline/blob/main/tests/examples/example03](https://github.com/cariad/cline/blob/main/tests/examples/example03)._
 
 Cline has baked-in support for printing your application's help and version on the command line.
 
