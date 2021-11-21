@@ -173,7 +173,7 @@ workflows:
       - lint_black:
           context:
             - python
-      - lint_example_package_types:
+      - lint_examples_package_types:
           context:
             - python
       - lint_flake8:
