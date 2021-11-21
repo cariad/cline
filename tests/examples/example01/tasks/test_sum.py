@@ -1,7 +1,7 @@
 from io import StringIO
 
 from cline import CommandLineArguments
-from examples.example01.tasks import SumTask, NumberArgs
+from examples.example01.tasks import NumberArgs, SumTask
 
 
 def test_make_args() -> None:
