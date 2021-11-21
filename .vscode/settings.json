@@ -1,5 +1,11 @@
 {
   "cSpell.words": [
-    "mypy"
+    "argparse",
+    "classmethod",
+    "dataclass",
+    "dataclasses",
+    "getvalue",
+    "mypy",
+    "preempt"
   ]
 }

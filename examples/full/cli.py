@@ -1,13 +1,11 @@
 from argparse import ArgumentParser
-from typing import List
 
-import example.tasks
-from cline import AnyTaskType, Cli
+import examples.full.tasks
+from cline.cli import ArgumentParserCli, RegisteredTasks
 
 
-class ExampleCli(Cli):
-    @property
-    def parser(self) -> ArgumentParser:
+class ExampleCli(ArgumentParserCli):
+    def make_parser(self) -> ArgumentParser:
         parser = ArgumentParser()
         parser.add_argument("a", help="first number", nargs="?")
         parser.add_argument("b", help="second number", nargs="?")
@@ -16,9 +14,8 @@ class ExampleCli(Cli):
         parser.add_argument("--version", help="show version", action="store_true")
         return parser
 
-    @property
-    def tasks(self) -> List[AnyTaskType]:
+    def register_tasks(self) -> RegisteredTasks:
         return [
-            example.tasks.SubtractTask,
-            example.tasks.SumTask,
+            examples.full.tasks.SubtractTask,
+            examples.full.tasks.SumTask,
         ]

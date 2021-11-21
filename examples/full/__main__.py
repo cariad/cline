@@ -1,5 +1,5 @@
-from example import __version__
-from example.cli import ExampleCli
+from examples.full import __version__
+from examples.full.cli import ExampleCli
 
 
 def entry() -> None:

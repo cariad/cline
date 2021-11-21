@@ -1,4 +1,3 @@
-from argparse import Namespace
 from typing import Dict, List, Optional, Union
 
 from cline.exceptions import CannotMakeArguments
@@ -6,18 +5,14 @@ from cline.exceptions import CannotMakeArguments
 ArgumentsType = Dict[str, Union[str, bool, None]]
 
 
-class CommandLineArgs:
-    def __init__(self, args: Optional[ArgumentsType] = None) -> None:
-        self._arguments = args or {}
-
-    def add_namespace(self, namespace: Namespace) -> None:
-        ns_dict = vars(namespace)
-        for key in ns_dict:
-            self._arguments[key] = ns_dict[key]
-
-    def add_unknown(self, args: List[str]) -> None:
-        for key in args:
-            self._arguments[key] = None
+class CommandLineArguments:
+    def __init__(
+        self,
+        known: Optional[ArgumentsType] = None,
+        unknown: Optional[List[str]] = None,
+    ) -> None:
+        self._known = known or {}
+        self._unknown = unknown or []
 
     def assert_true(self, key: str) -> None:
         """
@@ -40,7 +35,7 @@ class CommandLineArgs:
         not set or not a boolean.
         """
 
-        value = self._arguments.get(key, None)
+        value = self._known.get(key, None)
 
         if value is None and default is not None:
             return default
@@ -67,7 +62,7 @@ class CommandLineArgs:
         Raises `CommandLineArgumentError` if the argument is not set or not a string.
         """
 
-        value = self._arguments.get(key, None)
+        value = self._known.get(key, None)
         if not isinstance(value, str):
             raise CannotMakeArguments()
         return value

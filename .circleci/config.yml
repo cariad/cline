@@ -21,7 +21,7 @@ jobs:
           paths:
             - .venv
 
-  lint_example_package_types:
+  lint_examples_package_types:
     docker:
       - image: cimg/python:3.10.0
     environment:
@@ -36,7 +36,7 @@ jobs:
           keys:
             - mypy-example-package-{{ .Branch }}
             - mypy-example-package-main
-      - run: pipenv run ./scripts/lint-package-types.sh
+      - run: pipenv run ./scripts/lint-examples-package-types.sh
       - save_cache:
           key: mypy-example-package-{{ .Branch }}
           paths:

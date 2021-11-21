@@ -1,12 +1,12 @@
 from io import StringIO
 
-from cline import CommandLineArgs
-from example.arguments import NumberArgs
-from example.tasks import SubtractTask
+from cline import CommandLineArguments
+from examples.full.arguments import NumberArgs
+from examples.full.tasks import SubtractTask
 
 
 def test_make_args() -> None:
-    cli_args = CommandLineArgs(
+    cli_args = CommandLineArguments(
         {
             "a": "1",
             "b": "2",

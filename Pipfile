@@ -3,13 +3,9 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
-[scripts]
-lint = "./scripts/lint.sh"
-test = "./scripts/test.sh"
-
 [dev-packages]
 black = "==21.10b0"
-edition = "==1.0.0a3"
+edition = "==1.0.0a7"
 flake8 = "*"
 isort = "*"
 mypy = "*"
@@ -19,7 +15,9 @@ shellcheck-py = "*"
 twine = "*"
 yamllint = "*"
 
-[packages]
-
 [requires]
 python_version = "3.10"
+
+[scripts]
+lint = "./scripts/lint.sh"
+test = "./scripts/test.sh"

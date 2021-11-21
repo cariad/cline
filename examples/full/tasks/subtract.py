@@ -1,10 +1,10 @@
-from cline import CommandLineArgs, Task
-from example.arguments import NumberArgs
+from cline import CommandLineArguments, Task
+from examples.full.arguments import NumberArgs
 
 
 class SubtractTask(Task[NumberArgs]):
     @classmethod
-    def make_args(cls, args: CommandLineArgs) -> NumberArgs:
+    def make_args(cls, args: CommandLineArguments) -> NumberArgs:
         """
         Creates arguments for this task based on the command line `args`.
         """

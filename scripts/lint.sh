@@ -6,7 +6,7 @@ set -euo pipefail
 ./scripts/lint-shell.sh
 
 ./scripts/lint-black.sh
-./scripts/lint-example-package-types.sh
+./scripts/lint-examples-package-types.sh
 ./scripts/lint-flake8.sh
 ./scripts/lint-isort.sh
 ./scripts/lint-package-types.sh

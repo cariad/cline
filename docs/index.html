@@ -7,12 +7,14 @@
     <title>Cline</title>
     <meta name="author" content="Cariad Eccleston" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📜</text></svg>" />
-    <style>body {
+    <style>
+body {
   /* Thanks! https://systemfontstack.com */
   font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Ubuntu, roboto, noto, arial, sans-serif;
 }
 
 body {
+  --accent: #f1fa8c; /* Copied from Dracula */
   --paragraph-spacing: 2rem;
   --paragraph-spacing-smaller: 0.6rem;
 
@@ -113,15 +115,15 @@ nav.toc ol {
 }
 
 nav.toc li ol {
-  margin-top: 0.5rem;
+  margin-top: 0.1rem;
 }
 
 nav.toc li {
   list-style: none;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.1rem;
 }
 
-p, li {
+p, li, pre {
   line-height: 1.6;
 }
 
@@ -135,26 +137,23 @@ blockquote {
   padding-left: 1rem;
 }
 
-
-
-
 h2 > code,
 li > code,
 p > code {
-  text-decoration: underline;
-  text-decoration-style: dotted;
-  text-underline-offset: 0.15em;
-  text-decoration-thickness: 0.12rem;
-  text-decoration-color: var(--yellow);
-}
+  background: var(--accent);
+  border-radius: 0.3rem;
 
-li > code,
-p > code {
-  font-weight: 500;
+  font-size: 0.95rem;
+
+  letter-spacing: 0.04rem;
+
+  padding-top: 0.4rem;
+  padding-bottom: 0.2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 sup {
-  /* font-size: 0.9rem; */
   padding-left: 0.2rem;
   padding-right: 0.2rem;
 }
@@ -169,10 +168,10 @@ code, pre {
 }
 
 .highlight, .thtml {
-  font-size: 0.9em;
+  font-size: 0.8em;
 
-  background-color: #1B2A41;
-  color: #fff;
+  /* background-color: #1B2A41; */
+  /* color: #fff; */
 
   padding: var(--code-padding);
   border-radius: 0.3em;
@@ -206,12 +205,10 @@ nav > ul > li {
   margin-right: 1rem;
 }
 
-
-h2+h3 {
-  margin-top: 0;
-}
-
-h3+h4 {
+h2+h3,
+h3+h4,
+h4+h5,
+h5+h6 {
   margin-top: 0;
 }
 
@@ -219,6 +216,120 @@ h2, h3, h4, h5, h6 {
   margin-bottom: var(--paragraph-spacing);
   margin-top: calc(var(--paragraph-spacing) * 2);
 }
+
+/* Dracula Theme v1.2.5
+ *
+ * https://github.com/dracula/pygments
+ *
+ * Copyright 2016, All rights reserved
+ *
+ * Code licensed under the MIT license
+ * http://zenorocha.mit-license.org
+ *
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2016 Dracula Theme
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *
+ * @author Rob G <wowmotty@gmail.com>
+ * @author Chris Bracco <chris@cbracco.me>
+ * @author Zeno Rocha <hi@zenorocha.com>
+ */
+
+ .highlight .hll { background-color: #f1fa8c }
+ .highlight  { background: #282a36; color: #f8f8f2 }
+ .highlight .c { color: #6272a4 } /* Comment */
+ .highlight .err { color: #f8f8f2 } /* Error */
+ .highlight .g { color: #f8f8f2 } /* Generic */
+ .highlight .k { color: #ff79c6 } /* Keyword */
+ .highlight .l { color: #f8f8f2 } /* Literal */
+ .highlight .n { color: #f8f8f2 } /* Name */
+ .highlight .o { color: #ff79c6 } /* Operator */
+ .highlight .x { color: #f8f8f2 } /* Other */
+ .highlight .p { color: #f8f8f2 } /* Punctuation */
+ .highlight .ch { color: #6272a4 } /* Comment.Hashbang */
+ .highlight .cm { color: #6272a4 } /* Comment.Multiline */
+ .highlight .cp { color: #ff79c6 } /* Comment.Preproc */
+ .highlight .cpf { color: #6272a4 } /* Comment.PreprocFile */
+ .highlight .c1 { color: #6272a4 } /* Comment.Single */
+ .highlight .cs { color: #6272a4 } /* Comment.Special */
+ .highlight .gd { color: #8b080b } /* Generic.Deleted */
+ .highlight .ge { color: #f8f8f2; text-decoration: underline } /* Generic.Emph */
+ .highlight .gr { color: #f8f8f2 } /* Generic.Error */
+ .highlight .gh { color: #f8f8f2; font-weight: bold } /* Generic.Heading */
+ .highlight .gi { color: #f8f8f2; font-weight: bold } /* Generic.Inserted */
+ .highlight .go { color: #44475a } /* Generic.Output */
+ .highlight .gp { color: #f8f8f2 } /* Generic.Prompt */
+ .highlight .gs { color: #f8f8f2 } /* Generic.Strong */
+ .highlight .gu { color: #f8f8f2; font-weight: bold } /* Generic.Subheading */
+ .highlight .gt { color: #f8f8f2 } /* Generic.Traceback */
+ .highlight .kc { color: #ff79c6 } /* Keyword.Constant */
+ .highlight .kd { color: #8be9fd; font-style: italic } /* Keyword.Declaration */
+ .highlight .kn { color: #ff79c6 } /* Keyword.Namespace */
+ .highlight .kp { color: #ff79c6 } /* Keyword.Pseudo */
+ .highlight .kr { color: #ff79c6 } /* Keyword.Reserved */
+ .highlight .kt { color: #8be9fd } /* Keyword.Type */
+ .highlight .ld { color: #f8f8f2 } /* Literal.Date */
+ .highlight .m { color: #bd93f9 } /* Literal.Number */
+ .highlight .s { color: #f1fa8c } /* Literal.String */
+ .highlight .na { color: #50fa7b } /* Name.Attribute */
+ .highlight .nb { color: #8be9fd; font-style: italic } /* Name.Builtin */
+ .highlight .nc { color: #50fa7b } /* Name.Class */
+ .highlight .no { color: #f8f8f2 } /* Name.Constant */
+ .highlight .nd { color: #f8f8f2 } /* Name.Decorator */
+ .highlight .ni { color: #f8f8f2 } /* Name.Entity */
+ .highlight .ne { color: #f8f8f2 } /* Name.Exception */
+ .highlight .nf { color: #50fa7b } /* Name.Function */
+ .highlight .nl { color: #8be9fd; font-style: italic } /* Name.Label */
+ .highlight .nn { color: #f8f8f2 } /* Name.Namespace */
+ .highlight .nx { color: #f8f8f2 } /* Name.Other */
+ .highlight .py { color: #f8f8f2 } /* Name.Property */
+ .highlight .nt { color: #ff79c6 } /* Name.Tag */
+ .highlight .nv { color: #8be9fd; font-style: italic } /* Name.Variable */
+ .highlight .ow { color: #ff79c6 } /* Operator.Word */
+ .highlight .w { color: #f8f8f2 } /* Text.Whitespace */
+ .highlight .mb { color: #bd93f9 } /* Literal.Number.Bin */
+ .highlight .mf { color: #bd93f9 } /* Literal.Number.Float */
+ .highlight .mh { color: #bd93f9 } /* Literal.Number.Hex */
+ .highlight .mi { color: #bd93f9 } /* Literal.Number.Integer */
+ .highlight .mo { color: #bd93f9 } /* Literal.Number.Oct */
+ .highlight .sa { color: #f1fa8c } /* Literal.String.Affix */
+ .highlight .sb { color: #f1fa8c } /* Literal.String.Backtick */
+ .highlight .sc { color: #f1fa8c } /* Literal.String.Char */
+ .highlight .dl { color: #f1fa8c } /* Literal.String.Delimiter */
+ .highlight .sd { color: #f1fa8c } /* Literal.String.Doc */
+ .highlight .s2 { color: #f1fa8c } /* Literal.String.Double */
+ .highlight .se { color: #f1fa8c } /* Literal.String.Escape */
+ .highlight .sh { color: #f1fa8c } /* Literal.String.Heredoc */
+ .highlight .si { color: #f1fa8c } /* Literal.String.Interpol */
+ .highlight .sx { color: #f1fa8c } /* Literal.String.Other */
+ .highlight .sr { color: #f1fa8c } /* Literal.String.Regex */
+ .highlight .s1 { color: #f1fa8c } /* Literal.String.Single */
+ .highlight .ss { color: #f1fa8c } /* Literal.String.Symbol */
+ .highlight .bp { color: #f8f8f2; font-style: italic } /* Name.Builtin.Pseudo */
+ .highlight .fm { color: #50fa7b } /* Name.Function.Magic */
+ .highlight .vc { color: #8be9fd; font-style: italic } /* Name.Variable.Class */
+ .highlight .vg { color: #8be9fd; font-style: italic } /* Name.Variable.Global */
+ .highlight .vi { color: #8be9fd; font-style: italic } /* Name.Variable.Instance */
+ .highlight .vm { color: #8be9fd; font-style: italic } /* Name.Variable.Magic */
+ .highlight .il { color: #bd93f9 } /* Literal.Number.Integer.Long */
 </style>
   </head>
 
@@ -227,13 +338,393 @@ h2, h3, h4, h5, h6 {
         <h1>📜 Cline</h1>
 <p><strong>Cline</strong> is a Python package for building command line interfaces.</p>
 <p><strong>Cline</strong> is easy, quick to use, and enables unit testing. Chase that 100%, my friends!</p>
-<h2>Example<a id="example"></a></h2>
-<p>Let's say we want to build a command line application that:</p>
+<p><nav class="toc"><ol><li><a href="#examples">Examples</a><ol><li><a href="#example-1-summing-two-integers">Example 1: Summing two integers</a></li><li><a href="#example-2-adding-support-for-subtraction">Example 2: Adding support for subtraction</a></li><li><a href="#example-3-supporting-help-and-versions">Example 3: Supporting help and versions</a></li><li><a href="#example-4-making-your-package-executable-after-installing">Example 4: Making your package executable after installing</a></li></ol></li><li><a href="#scratch">Scratch</a></li><li><a href="#acknowledgements">Acknowledgements</a></li></ol></nav></p>
+<h2>Examples<a id="examples"></a></h2>
+<h3>Example 1: Summing two integers<a id="example-1-summing-two-integers"></a></h3>
+<p><em>The source code for this example is available at <a href="https://github.com/cariad/cline/blob/main/examples/sum">github.com/cariad/cline/blob/main/examples/sum</a>. The tests are in <a href="https://github.com/cariad/cline/blob/main/tests/examples/sum">github.com/cariad/cline/blob/main/tests/examples/sum</a>.</em></p>
+<p>In this example, we'll build an application that sums two integers on the command line then prints the result:</p>
+<div class="highlight"><pre><span></span>python -m examples.sum <span class="m">1</span> <span class="m">3</span>
+</pre></div>
+
+
+
+<pre class="nohighlight thtml"><code class="thtml-code">4<br /></code></pre>
+
+
+
+<h4>1. Create a CLI class with an argument parser<a id="1-create-a-cli-class-with-an-argument-parser"></a></h4>
+<p>For this example, we'll parse the command line arguments with Python's baked-in <code>ArgumentParser</code>. Cline provides an <code>ArgumentParserCli</code> base class for this.</p>
+<p>Create a class named <code>ExampleCli</code> that inherits from <code>cline.cli.ArgumentParserCli</code>. Override <code>make_parser()</code> to return an <code>ArgumentParser</code> that accepts two numbers.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">ArgumentParser</span>
+<span class="kn">from</span> <span class="nn">cline.cli</span> <span class="kn">import</span> <span class="n">ArgumentParserCli</span>
+
+<span class="k">class</span> <span class="nc">ExampleCli</span><span class="p">(</span><span class="n">ArgumentParserCli</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">make_parser</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-></span> <span class="n">ArgumentParser</span><span class="p">:</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">ArgumentParser</span><span class="p">()</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+          <span class="s2">"a"</span><span class="p">,</span>
+          <span class="n">help</span><span class="o">=</span><span class="s2">"first number"</span><span class="p">,</span>
+          <span class="n">nargs</span><span class="o">=</span><span class="s2">"?"</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+          <span class="s2">"b"</span><span class="p">,</span>
+          <span class="n">help</span><span class="o">=</span><span class="s2">"second number"</span><span class="p">,</span>
+          <span class="n">nargs</span><span class="o">=</span><span class="s2">"?"</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">parser</span>
+</pre></div>
+
+<h4>2. Creating a task<a id="2-creating-a-task"></a></h4>
+<p>A task does two things:</p>
+<ol>
+<li>Converts the command line arguments to strongly-typed task arguments</li>
+<li>Operates on strongly-typed task arguments</li>
+</ol>
+<p>We'll start with the strongly-typed task arguments. Since we'll be summing two integers, let's define a dataclass that holds two integers:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">NumberArgs</span><span class="p">:</span>
+    <span class="n">a</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">b</span><span class="p">:</span> <span class="nb">int</span>
+</pre></div>
+
+<p>Now we need a way to convert command line arguments to these task arguments. Create a class named <code>SumTask</code> and inherit from <code>cline.Task</code>. <code>Task</code> is generic and requires your strongly-typed arguments type.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">cline</span> <span class="kn">import</span> <span class="n">CommandLineArguments</span><span class="p">,</span> <span class="n">Task</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">NumberArgs</span><span class="p">:</span>
+    <span class="n">a</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">b</span><span class="p">:</span> <span class="nb">int</span>
+
+<span class="k">class</span> <span class="nc">SumTask</span><span class="p">(</span><span class="n">Task</span><span class="p">[</span><span class="n">NumberArgs</span><span class="p">]):</span>
+    <span class="k">pass</span>
+</pre></div>
+
+<p>To convert command line arguments to strongly-typed task arguments, override the <code>make_args()</code> method:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">cline</span> <span class="kn">import</span> <span class="n">CommandLineArguments</span><span class="p">,</span> <span class="n">Task</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">NumberArgs</span><span class="p">:</span>
+    <span class="n">a</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">b</span><span class="p">:</span> <span class="nb">int</span>
+
+<span class="k">class</span> <span class="nc">SumTask</span><span class="p">(</span><span class="n">Task</span><span class="p">[</span><span class="n">NumberArgs</span><span class="p">]):</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">make_args</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">CommandLineArguments</span><span class="p">)</span> <span class="o">-></span> <span class="n">NumberArgs</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">NumberArgs</span><span class="p">(</span>
+            <span class="n">a</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">get_integer</span><span class="p">(</span><span class="s2">"a"</span><span class="p">),</span>
+            <span class="n">b</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">get_integer</span><span class="p">(</span><span class="s2">"b"</span><span class="p">),</span>
+        <span class="p">)</span>
+</pre></div>
+
+<p><code>CommandLineArguments</code> wraps the parsed command line arguments with some handy functions for reading argument values.</p>
+<p>For example, since we named the two numbers <code>a</code> and <code>b</code> in the parser earlier, we can refer to them by name and call <code>get_integer()</code> to get their values.</p>
+<p>Note that <code>CommandLineArguments</code> will raise <code>CannotMakeArguments</code> if <code>a</code> or <code>b</code> aren't set or can't be parsed as integers. This is the correct way to indicate that task arguments cannot be made for a given task. You don't need to validate the arguments yourself.</p>
+<p>Now that <code>SumTask</code> knows how to create strongly-typed arguments, we can operate on them.</p>
+<p>Override the <code>invoke()</code> method to:</p>
+<ol>
+<li>Operate on <code>self.args</code></li>
+<li>Write output to <code>self.out</code></li>
+<li>Return the shell exit code</li>
+</ol>
+<p>In this example, <code>invoke()</code> sums the two integer arguments, writes the result, then returns <code>0</code> to indicate success:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">cline</span> <span class="kn">import</span> <span class="n">CommandLineArguments</span><span class="p">,</span> <span class="n">Task</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">NumberArgs</span><span class="p">:</span>
+    <span class="n">a</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">b</span><span class="p">:</span> <span class="nb">int</span>
+
+<span class="k">class</span> <span class="nc">SumTask</span><span class="p">(</span><span class="n">Task</span><span class="p">[</span><span class="n">NumberArgs</span><span class="p">]):</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">make_args</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">CommandLineArguments</span><span class="p">)</span> <span class="o">-></span> <span class="n">NumberArgs</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">NumberArgs</span><span class="p">(</span>
+            <span class="n">a</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">get_integer</span><span class="p">(</span><span class="s2">"a"</span><span class="p">),</span>
+            <span class="n">b</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">get_integer</span><span class="p">(</span><span class="s2">"b"</span><span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-></span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">a</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">b</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">0</span>
+</pre></div>
+
+<h4>3. Registering the task with the CLI<a id="3-registering-the-task-with-the-cli"></a></h4>
+<p>Back in your CLI class, override <code>register_tasks()</code> to register <code>SumTask</code>:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">ArgumentParser</span>
+<span class="kn">from</span> <span class="nn">cline.cli</span> <span class="kn">import</span> <span class="n">ArgumentParserCli</span>
+<span class="kn">from</span> <span class="nn">examples.sum.sum</span> <span class="kn">import</span> <span class="n">SumTask</span>
+
+<span class="k">class</span> <span class="nc">ExampleCli</span><span class="p">(</span><span class="n">ArgumentParserCli</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">make_parser</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-></span> <span class="n">ArgumentParser</span><span class="p">:</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">ArgumentParser</span><span class="p">()</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+          <span class="s2">"a"</span><span class="p">,</span>
+          <span class="n">help</span><span class="o">=</span><span class="s2">"first number"</span><span class="p">,</span>
+          <span class="n">nargs</span><span class="o">=</span><span class="s2">"?"</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+          <span class="s2">"b"</span><span class="p">,</span>
+          <span class="n">help</span><span class="o">=</span><span class="s2">"second number"</span><span class="p">,</span>
+          <span class="n">nargs</span><span class="o">=</span><span class="s2">"?"</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">parser</span>
+
+    <span class="k">def</span> <span class="nf">register_tasks</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-></span> <span class="n">RegisteredTasks</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">SumTask</span><span class="p">,</span>
+        <span class="p">]</span>
+</pre></div>
+
+<h4>4. Creating a CLI entry point<a id="4-creating-a-cli-entry-point"></a></h4>
+<p>Finally, create a <code>__main__.py</code> script that calls your CLI's <code>invoke_and_exit()</code> method:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">examples.sum.cli</span> <span class="kn">import</span> <span class="n">ExampleCli</span>
+
+<span class="k">def</span> <span class="nf">entry</span><span class="p">()</span> <span class="o">-></span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">ExampleCli</span><span class="o">.</span><span class="n">invoke_and_exit</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">entry</span><span class="p">()</span>
+</pre></div>
+
+<p>And that's it! You can now sum integers on the command line:</p>
+<div class="highlight"><pre><span></span>python -m examples.sum <span class="m">1</span> <span class="m">3</span>
+</pre></div>
+
+
+
+<pre class="nohighlight thtml"><code class="thtml-code">4<br /></code></pre>
+
+
+
+<h4>4. Unit testing<a id="4-unit-testing"></a></h4>
+<p>Cline was designed to support easy high coverage of your work.</p>
+<p>To test your task's <code>make_args()</code> function, construct your own <code>CommandLineArguments</code> instance with the command line arguments to test, then verify that <code>make_args()</code> returns the strongly-typed arguments that you'd expect:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cline</span> <span class="kn">import</span> <span class="n">CommandLineArguments</span>
+<span class="kn">from</span> <span class="nn">examples.sum.sum</span> <span class="kn">import</span> <span class="n">SumTask</span><span class="p">,</span> <span class="n">NumberArgs</span>
+
+<span class="k">def</span> <span class="nf">test_make_args</span><span class="p">()</span> <span class="o">-></span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">cli_args</span> <span class="o">=</span> <span class="n">CommandLineArguments</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">"a"</span><span class="p">:</span> <span class="s2">"1"</span><span class="p">,</span>
+            <span class="s2">"b"</span><span class="p">:</span> <span class="s2">"2"</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="n">SumTask</span><span class="o">.</span><span class="n">make_args</span><span class="p">(</span><span class="n">cli_args</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">args</span> <span class="o">==</span> <span class="n">NumberArgs</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+<p>To test your task's <code>invoke()</code> function, construct your own strongly-typed arguments and an output writer then assert that the shell exit code and written response are as you expect:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">StringIO</span>
+<span class="kn">from</span> <span class="nn">examples.sum.sum</span> <span class="kn">import</span> <span class="n">SumTask</span><span class="p">,</span> <span class="n">NumberArgs</span>
+
+<span class="k">def</span> <span class="nf">test_invoke</span><span class="p">()</span> <span class="o">-></span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
+    <span class="n">task</span> <span class="o">=</span> <span class="n">SumTask</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">NumberArgs</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">task</span><span class="o">.</span><span class="n">invoke</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="k">assert</span> <span class="n">out</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"7</span><span class="se">\n</span><span class="s2">"</span>
+</pre></div>
+
+<p>To test that the CLI will invoke your task for a given set of command line arguments, you can instantiate your CLI with the arguments to test then assert that the <code>.task</code> and <code>.task.args</code> properties are as you expect:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Type</span>
+
+<span class="kn">from</span> <span class="nn">pytest</span> <span class="kn">import</span> <span class="n">mark</span>
+
+<span class="kn">from</span> <span class="nn">cline</span> <span class="kn">import</span> <span class="n">AnyTask</span>
+<span class="kn">from</span> <span class="nn">examples.sum.cli</span> <span class="kn">import</span> <span class="n">ExampleCli</span>
+<span class="kn">from</span> <span class="nn">examples.sum.tasks.sum</span> <span class="kn">import</span> <span class="n">NumberArgs</span><span class="p">,</span> <span class="n">SumTask</span>
+
+<span class="nd">@mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span>
+    <span class="s2">"args, expect_task, expect_args"</span><span class="p">,</span>
+    <span class="p">[</span>
+        <span class="p">([</span><span class="s2">"1"</span><span class="p">,</span> <span class="s2">"2"</span><span class="p">],</span> <span class="n">SumTask</span><span class="p">,</span> <span class="n">NumberArgs</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">)),</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+<span class="k">def</span> <span class="nf">test</span><span class="p">(</span>
+    <span class="n">args</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">expect_task</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">AnyTask</span><span class="p">],</span>
+    <span class="n">expect_args</span><span class="p">:</span> <span class="n">NumberArgs</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-></span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">cli</span> <span class="o">=</span> <span class="n">ExampleCli</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cli</span><span class="o">.</span><span class="n">task</span><span class="p">,</span> <span class="n">expect_task</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">cli</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">args</span> <span class="o">==</span> <span class="n">expect_args</span>
+</pre></div>
+
+<h3>Example 2: Adding support for subtraction<a id="example-2-adding-support-for-subtraction"></a></h3>
+<p><em>The source code for this example is available at <a href="https://github.com/cariad/cline/blob/main/examples/subtract">github.com/cariad/cline/blob/main/examples/subtract</a>. The tests are in <a href="https://github.com/cariad/cline/blob/main/tests/examples/subtract">github.com/cariad/cline/blob/main/tests/examples/subtract</a>.</em></p>
+<p>In this example, we'll build on Example 1 to allow integers to be subtracted. We'll add <code>--sum</code> and <code>--sub</code> flags to describe that we want to do.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span>python -m examples.subtract --sum <span class="m">8</span> <span class="m">5</span>
+python -m examples.subtract --sub <span class="m">8</span> <span class="m">5</span>
+</pre></div>
+
+
+
+<pre class="nohighlight thtml"><code class="thtml-code">13<br />3<br /></code></pre>
+
+
+
+<h4>1. Add the new flags to the argument parser<a id="1-add-the-new-flags-to-the-argument-parser"></a></h4>
+<p>In your CLI class, update the argument parser to support <code>--sum</code> and <code>--sub</code> flags:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_parser</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-></span> <span class="n">ArgumentParser</span><span class="p">:</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">ArgumentParser</span><span class="p">()</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"first number"</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s2">"?"</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">"b"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"second number"</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s2">"?"</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">"--sub"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"subtracts"</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">"--sum"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"sums"</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">parser</span>
+</pre></div>
+
+<p>Note that the new arguments are presented as <code>--sub</code> and <code>--sum</code> here, but their names omit the dashes. The new arguments are named <code>sub</code> and <code>sum</code>.</p>
+<h4>2. Update SumTask to require the "--sum" flag<a id="2-update-sumtask-to-require-the---sum-flag"></a></h4>
+<p>In the previous example, we wanted <code>SumTask</code> to always run if we gave it two numbers. Now we want it to run only if we give it two numbers <em>and</em> the <code>--sum</code> flag.</p>
+<p>We can achieve this simply by calling <code>assert_true()</code> with the name of the flag we want to assert is truthy:</p>
+<div class="highlight"><pre><span></span><span class="nd">@classmethod</span>
+<span class="k">def</span> <span class="nf">make_args</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">CommandLineArguments</span><span class="p">)</span> <span class="o">-></span> <span class="n">NumberArgs</span><span class="p">:</span>
+    <span class="n">args</span><span class="o">.</span><span class="n">assert_true</span><span class="p">(</span><span class="s2">"sum"</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">NumberArgs</span><span class="p">(</span>
+        <span class="n">a</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">get_integer</span><span class="p">(</span><span class="s2">"a"</span><span class="p">),</span>
+        <span class="n">b</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">get_integer</span><span class="p">(</span><span class="s2">"b"</span><span class="p">),</span>
+    <span class="p">)</span>
+</pre></div>
+
+<h4>3. Create the SubtractTask class<a id="3-create-the-subtracttask-class"></a></h4>
+<p>To perform subtraction, we'll need a <code>SubtractTask</code> class. This is almost identical to <code>SumTask</code>, expect:</p>
+<ol>
+<li>We want to assert that the <code>sub</code> (not <code>sum</code>) flag is truthy</li>
+<li>We want to subtract (not sum) the arguments</li>
+</ol>
+<p>So, for example:</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SubtractTask</span><span class="p">(</span><span class="n">Task</span><span class="p">[</span><span class="n">NumberArgs</span><span class="p">]):</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">make_args</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">CommandLineArguments</span><span class="p">)</span> <span class="o">-></span> <span class="n">NumberArgs</span><span class="p">:</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">assert_true</span><span class="p">(</span><span class="s2">"sub"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">NumberArgs</span><span class="p">(</span>
+            <span class="n">a</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">get_integer</span><span class="p">(</span><span class="s2">"a"</span><span class="p">),</span>
+            <span class="n">b</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">get_integer</span><span class="p">(</span><span class="s2">"b"</span><span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-></span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">a</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">b</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">0</span>
+</pre></div>
+
+<h4>4. Register the SubtractTask class<a id="4-register-the-subtracttask-class"></a></h4>
+<p>Open your CLI class and register <code>SubtractTask</code>:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">register_tasks</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-></span> <span class="n">RegisteredTasks</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="n">examples</span><span class="o">.</span><span class="n">full</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">SubtractTask</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">.</span><span class="n">full</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">SumTask</span><span class="p">,</span>
+    <span class="p">]</span>
+</pre></div>
+
+<p>...and that's it! When your application runs, Cline will try each registered task in order until one is found that accepts the given command line arguments, then executes it:</p>
+<div class="highlight"><pre><span></span>python -m examples.subtract --sum <span class="m">8</span> <span class="m">5</span>
+python -m examples.subtract --sub <span class="m">8</span> <span class="m">5</span>
+</pre></div>
+
+
+
+<pre class="nohighlight thtml"><code class="thtml-code">13<br />3<br /></code></pre>
+
+
+
+<h3>Example 3: Supporting help and versions<a id="example-3-supporting-help-and-versions"></a></h3>
+<p><em>The source code for this example is available at <a href="https://github.com/cariad/cline/blob/main/examples/full">github.com/cariad/cline/blob/main/examples/full</a>. The tests are in <a href="https://github.com/cariad/cline/blob/main/tests/examples/full">github.com/cariad/cline/blob/main/tests/examples/full</a>.</em></p>
+<p>Cline has baked-in support for printing your application's help and version on the command line.</p>
+<p>Enabling support for help is easy enough: it's already enabled. If Cline cannot find any registered tasks that can handle the given command line arguments then it will print the argument parser's help.</p>
+<p>For example, if we run one of the above examples without specifying any numbers then each task's <code>make_args()</code> call will fail and Cline will fall back to displaying the help:</p>
+<div class="highlight"><pre><span></span>python -m examples.sum
+</pre></div>
+
+
+
+<pre class="nohighlight thtml"><code class="thtml-code">usage: __main__.py [-h] [a] [b]<br /><br />positional arguments:<br />  a           first number<br />  b           second number<br /><br />options:<br />  -h, --help  show this help message and exit<br /></code></pre>
+
+
+
+<p>Adding support for version printing is a two-step process. First, add a <code>--version</code> flag to your argument parser:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_parser</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-></span> <span class="n">ArgumentParser</span><span class="p">:</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">ArgumentParser</span><span class="p">()</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"first number"</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s2">"?"</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">"b"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"second number"</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s2">"?"</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">"--sub"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"subtracts numbers"</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">"--sum"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"sums numbers"</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">"--version"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"show version"</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">parser</span>
+</pre></div>
+
+<p>Then in <code>__main__.py</code>, pass your application's version into <code>invoke_and_exit()</code>:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">examples.full</span> <span class="kn">import</span> <span class="n">__version__</span>
+<span class="kn">from</span> <span class="nn">examples.full.cli</span> <span class="kn">import</span> <span class="n">ExampleCli</span>
+
+<span class="k">def</span> <span class="nf">entry</span><span class="p">()</span> <span class="o">-></span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">ExampleCli</span><span class="o">.</span><span class="n">invoke_and_exit</span><span class="p">(</span><span class="n">app_version</span><span class="o">=</span><span class="n">__version__</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">entry</span><span class="p">()</span>
+</pre></div>
+
+<p>Note that this depends on your own implementation of versioning. I use <code>__version__</code> but you don't have to. If your application's version is gettable via a property other than <code>__version__</code> then pass that instead.</p>
+<div class="highlight"><pre><span></span>python -m examples.full --version
+</pre></div>
+
+
+
+<pre class="nohighlight thtml"><code class="thtml-code">1.2.3<br /></code></pre>
+
+
+
+<h3>Example 4: Making your package executable after installing<a id="example-4-making-your-package-executable-after-installing"></a></h3>
+<p>This isn't Cline functionality, but I'll preempt the question by answering it now.</p>
+<p>In your <code>setup.py</code> script, pass an <code>entry_points</code> value into <code>setup()</code>:</p>
+<div class="highlight"><pre><span></span><span class="n">setup</span><span class="p">(</span>
+    <span class="c1"># ...</span>
+    <span class="n">entry_points</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">"console_scripts"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">"foo=bar.__main__:entry"</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">},</span>
+    <span class="c1"># ...</span>
+<span class="p">)</span>
+</pre></div>
+
+<p>Note that:</p>
+<ul>
+<li><code>foo</code> is the name of the command you want your users to run (i.e. <code>foo --help</code>)</li>
+<li><code>bar</code> is your package name</li>
+<li><code>entry</code> is the name of the function to run inside <code>__main__.py</code></li>
+</ul>
+<hr>
+<p>If you forget to specify the numbers then Cline will fallback to showing <code>ArgumentParser</code>'s help:</p>
+<div class="highlight"><pre><span></span>python -m examples.sum
+</pre></div>
+
+
+
+<pre class="nohighlight thtml"><code class="thtml-code">usage: __main__.py [-h] [a] [b]<br /><br />positional arguments:<br />  a           first number<br />  b           second number<br /><br />options:<br />  -h, --help  show this help message and exit<br /></code></pre>
+
+
+
+<h2>Scratch<a id="scratch"></a></h2>
 <ul>
 <li>Sums two numbers if we pass them with <code>--sum</code></li>
 <li>Subtracts two numbers if we pass them with <code>--subtract</code></li>
 <li>Prints the application's help if we run with <code>--help</code></li>
 <li>Prints the application's version if we run with <code>--version</code></li>
+</ul>
+<h2>Acknowledgements<a id="acknowledgements"></a></h2>
+<ul>
+<li>This documentation was pressed with <a href="https://cariad.github.io/edition/">Edition</a>.</li>
 </ul>
     </article>
   </body>

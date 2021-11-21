@@ -3,9 +3,9 @@ from typing import List, Type
 from pytest import mark
 
 import cline.tasks
-import example.tasks
+import examples.full.tasks
 from cline import AnyTask
-from example.cli import ExampleCli
+from examples.full.cli import ExampleCli
 
 
 @mark.parametrize(
@@ -13,8 +13,8 @@ from example.cli import ExampleCli
     [
         ([], cline.tasks.HelpTask),
         (["--version"], cline.tasks.HelpTask),
-        (["1", "2", "--sub"], example.tasks.SubtractTask),
-        (["1", "2", "--sum"], example.tasks.SumTask),
+        (["1", "2", "--sub"], examples.full.tasks.SubtractTask),
+        (["1", "2", "--sum"], examples.full.tasks.SumTask),
     ],
 )
 def test(args: List[str], expect: Type[AnyTask]) -> None:

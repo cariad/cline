@@ -1,7 +1,7 @@
 from importlib.resources import open_text
 
 from cline.cli import Cli
-from cline.command_line_arguments import CommandLineArgs
+from cline.cli_args import CommandLineArguments
 from cline.exceptions import CannotMakeArguments
 from cline.tasks import AnyTask, AnyTaskType, Task
 
@@ -12,7 +12,7 @@ __all__ = [
     "AnyTask",
     "AnyTaskType",
     "Cli",
-    "CommandLineArgs",
+    "CommandLineArguments",
     "CannotMakeArguments",
     "Task",
 ]

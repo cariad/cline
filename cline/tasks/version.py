@@ -1,4 +1,4 @@
-from cline.command_line_arguments import CommandLineArgs
+from cline.cli_args import CommandLineArguments
 from cline.exceptions import UserNeedsVersion
 from cline.tasks.task import Task
 
@@ -8,5 +8,5 @@ class VersionTask(Task[None]):
         raise UserNeedsVersion()
 
     @classmethod
-    def make_args(cls, args: CommandLineArgs) -> None:
+    def make_args(cls, args: CommandLineArguments) -> None:
         args.assert_true("version")
