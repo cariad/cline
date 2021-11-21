@@ -162,7 +162,7 @@ jobs:
           keys:
             - pipenv-{{ checksum "Pipfile.lock" }}
       - run: pipenv sync --dev
-      - run: pipenv run ./build.sh
+      - run: pipenv run build
       - run: pip install dist/*
       - run: if [[ -z "${CIRCLE_TAG}" ]]; then circleci-agent step halt; fi
       - run: pipenv run twine upload dist/*

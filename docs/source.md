@@ -6,9 +6,9 @@ title: Cline
 
 # 📜 Cline
 
-**Cline** is a Python package for building command line interfaces.
+**Cline** is a Python package that helps you build command line applications.
 
-**Cline** is easy, quick to use, and enables unit testing. Chase that 100%, my friends!
+**Cline** separates the two concerns of "understanding the command line arguments you receive" and "operating on strongly-typed arguments" and helps you to write clean, testable tasks.
 
 <edition value="toc" />
 
@@ -429,24 +429,30 @@ Note that:
 - `bar` is your package name
 - `entry` is the name of the function to run inside `__main__.py`
 
----
+## API reference
 
+The package is typed and self-documented. If any hints or docstrings are could use some clarity, please raise an issue.
 
-If you forget to specify the numbers then Cline will fallback to showing `ArgumentParser`'s help:
+## Project
 
-```bash
-python -m examples.sum
-```
+### Contributing
 
-<!--edition-exec-->
+To contribute a bug report, enhancement or feature request, please raise an issue at [github.com/cariad/cline/issues](https://github.com/cariad/cline/issues).
 
-## Scratch
+If you want to contribute a code change, please raise an issue first so we can chat about the direction you want to take.
 
-- Sums two numbers if we pass them with `--sum`
-- Subtracts two numbers if we pass them with `--subtract`
-- Prints the application's help if we run with `--help`
-- Prints the application's version if we run with `--version`
+### Licence
 
-## Acknowledgements
+Edition is released at [github.com/cariad/cline](https://github.com/cariad/cline) under the MIT Licence.
+
+See [LICENSE](https://github.com/cariad/cline/blob/main/LICENSE) for more information.
+
+### Author
+
+Hello! 👋 I'm **Cariad Eccleston** and I'm a freelance DevOps and backend engineer. My contact details are available on my personal wiki at [cariad.earth](https://cariad.earth).
+
+Please consider supporting my open source projects by [sponsoring me on GitHub](https://github.com/sponsors/cariad/).
+
+### Acknowledgements
 
 - This documentation was pressed with [Edition](https://cariad.github.io/edition/).

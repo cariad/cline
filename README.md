@@ -1,8 +1,8 @@
 # 📜 Cline
 
-**Cline** is a Python package for building command line interfaces.
+**Cline** is a Python package that helps you build command line applications.
 
-**Cline** is easy, quick to use, and enables unit testing. Chase that 100%, my friends!
+**Cline** separates the two concerns of "understanding the command line arguments you receive" and "operating on strongly-typed arguments" and helps you to write clean, testable tasks.
 
 <edition value="toc" />
 
@@ -468,36 +468,52 @@ Note that:
 - `bar` is your package name
 - `entry` is the name of the function to run inside `__main__.py`
 
----
+## API reference
 
+### `cline.cli.Cli[TParser]` abstract class
 
-If you forget to specify the numbers then Cline will fallback to showing `ArgumentParser`'s help:
+The `Cli` abstract class is the entry point and manager of the tasks invoked on behalf of the host application.
 
-```bash
-python -m examples.sum
-```
+`Cli` isn't opinionated on how you choose to parse command line arguments. The `TParser` generic type describes whichever parser you choose. A `ArgumentParserCli` class is provided which uses Python's baked-in `argparse.ArgumentParser`.
 
-<!--edition-exec as=markdown fence=backticks host=shell range=start-->
+### `cline.cli.ArgumentParserCli` abstract class
 
-```text
-usage: __main__.py [-h] [a] [b]
+`ArgumentParserCli` is an implementation of `Cli` that uses Python's baked-in `argparse.ArgumentParser` to parse arguments.
 
-positional arguments:
-  a           first number
-  b           second number
+The functions that must be overridden and implemented are:
 
-options:
-  -h, --help  show this help message and exit
-```
+- `make_parser()` must return an instance of `argparse.ArgumentParser` configured for your project.
+- `register_tasks()` must return the ordered list of `Task` classes to be considered for invocation.
 
-<!--edition-exec range=end-->
+### `cline.Task[TTaskArgs]` abstract class
 
-## Scratch
+The `Task` abstract class represents a type of work that can be invoked via the command line.
 
-- Sums two numbers if we pass them with `--sum`
-- Subtracts two numbers if we pass them with `--subtract`
-- Prints the application's help if we run with `--help`
-- Prints the application's version if we run with `--version`
+`Task` separates the two concerns of:
+
+1. Converting the user-entered command line arguments to strongly-typed arguments
+1. Operating on strongly-typed arguments
+
+The `TTaskArgs` generic type describes a task's strongly-typed arguments.
+
+The functions that must be overridden and implemented are:
+
+- `make_args(args: CommandLineArguments)` must interrogate the given command line arguments and return strongly-typed arguments. Raise `CannotMakeArguments` if the given command line arguments cannot be used to prepare this task.
+- `invoke()` must perform the task's work then return the shell exit code.
+
+The following properties are available during invocation:
+
+- `self.args` gets the task's strongly-typed arguments.
+- `self.out` gets the output writer.
+
+### `cline.CommandLineArguments` class
+
+A `CommandLineArguments` instance will be passed to `Task.make_args` to help you interpret the user-entered command line arguments.
+
+- `assert_true(key: str)` asserts that the command line flag is truthy. Raises `CannotMakeArguments` if not.
+- `get_bool(key: str, default: Optional[bool] = None)` gets the boolean value of the given argument. If the argument isn't set to a boolean value and a default value isn't specified then `CannotMakeArguments` is raised.
+- `get_integer(key: str)` gets the integer value of the given argument. If the argument isn't set to a integer value then `CannotMakeArguments` is raised.
+- `get_string(key: str)` gets the string value of the given argument. If the argument isn't set to a string value then `CannotMakeArguments` is raised.
 
 ## Acknowledgements
 

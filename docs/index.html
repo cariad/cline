@@ -137,20 +137,28 @@ blockquote {
   padding-left: 1rem;
 }
 
+a > code,
 h2 > code,
+h3 > code,
+h4 > code,
+h5 > code,
+h6 > code,
 li > code,
 p > code {
   background: var(--accent);
-  border-radius: 0.3rem;
+  border-radius: 0.3em;
 
-  font-size: 0.95rem;
+  letter-spacing: 0.04em;
 
-  letter-spacing: 0.04rem;
+  padding-top: 0.4em;
+  padding-bottom: 0.2em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
 
-  padding-top: 0.4rem;
-  padding-bottom: 0.2rem;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+li > code,
+p > code {
+  font-size: 0.85em;
 }
 
 sup {
@@ -336,9 +344,9 @@ h2, h3, h4, h5, h6 {
   <body>
     <article>
         <h1>📜 Cline</h1>
-<p><strong>Cline</strong> is a Python package for building command line interfaces.</p>
-<p><strong>Cline</strong> is easy, quick to use, and enables unit testing. Chase that 100%, my friends!</p>
-<p><nav class="toc"><ol><li><a href="#examples">Examples</a><ol><li><a href="#example-1-summing-two-integers">Example 1: Summing two integers</a></li><li><a href="#example-2-adding-support-for-subtraction">Example 2: Adding support for subtraction</a></li><li><a href="#example-3-supporting-help-and-versions">Example 3: Supporting help and versions</a></li><li><a href="#example-4-making-your-package-executable-after-installing">Example 4: Making your package executable after installing</a></li></ol></li><li><a href="#scratch">Scratch</a></li><li><a href="#acknowledgements">Acknowledgements</a></li></ol></nav></p>
+<p><strong>Cline</strong> is a Python package that helps you build command line applications.</p>
+<p><strong>Cline</strong> separates the two concerns of "understanding the command line arguments you receive" and "operating on strongly-typed arguments" and helps you to write clean, testable tasks.</p>
+<p><nav class="toc"><ol><li><a href="#examples">Examples</a><ol><li><a href="#example-1-summing-two-integers">Example 1: Summing two integers</a></li><li><a href="#example-2-adding-support-for-subtraction">Example 2: Adding support for subtraction</a></li><li><a href="#example-3-supporting-help-and-versions">Example 3: Supporting help and versions</a></li><li><a href="#example-4-making-your-package-executable-after-installing">Example 4: Making your package executable after installing</a></li></ol></li><li><a href="#api-reference">API reference</a><ol><li><a href="#clinecliclitparser-abstract-class"><code>cline.cli.Cli[TParser]</code> abstract class</a></li><li><a href="#clinecliargumentparsercli-abstract-class"><code>cline.cli.ArgumentParserCli</code> abstract class</a></li><li><a href="#clinetaskttaskargs-abstract-class"><code>cline.Task[TTaskArgs]</code> abstract class</a></li><li><a href="#clinecommandlinearguments-class"><code>cline.CommandLineArguments</code> class</a></li></ol></li><li><a href="#acknowledgements">Acknowledgements</a></li></ol></nav></p>
 <h2>Examples<a id="examples"></a></h2>
 <h3>Example 1: Summing two integers<a id="example-1-summing-two-integers"></a></h3>
 <p><em>The source code for this example is available at <a href="https://github.com/cariad/cline/blob/main/examples/sum">github.com/cariad/cline/blob/main/examples/sum</a>. The tests are in <a href="https://github.com/cariad/cline/blob/main/tests/examples/sum">github.com/cariad/cline/blob/main/tests/examples/sum</a>.</em></p>
@@ -704,23 +712,42 @@ python -m examples.subtract --sub <span class="m">8</span> <span class="m">5</sp
 <li><code>bar</code> is your package name</li>
 <li><code>entry</code> is the name of the function to run inside <code>__main__.py</code></li>
 </ul>
-<hr>
-<p>If you forget to specify the numbers then Cline will fallback to showing <code>ArgumentParser</code>'s help:</p>
-<div class="highlight"><pre><span></span>python -m examples.sum
-</pre></div>
-
-
-
-<pre class="nohighlight thtml"><code class="thtml-code">usage: __main__.py [-h] [a] [b]<br /><br />positional arguments:<br />  a           first number<br />  b           second number<br /><br />options:<br />  -h, --help  show this help message and exit<br /></code></pre>
-
-
-
-<h2>Scratch<a id="scratch"></a></h2>
+<h2>API reference<a id="api-reference"></a></h2>
+<h3><code>cline.cli.Cli[TParser]</code> abstract class<a id="clinecliclitparser-abstract-class"></a></h3>
+<p>The <code>Cli</code> abstract class is the entry point and manager of the tasks invoked on behalf of the host application.</p>
+<p><code>Cli</code> isn't opinionated on how you choose to parse command line arguments. The <code>TParser</code> generic type describes whichever parser you choose. A <code>ArgumentParserCli</code> class is provided which uses Python's baked-in <code>argparse.ArgumentParser</code>.</p>
+<h3><code>cline.cli.ArgumentParserCli</code> abstract class<a id="clinecliargumentparsercli-abstract-class"></a></h3>
+<p><code>ArgumentParserCli</code> is an implementation of <code>Cli</code> that uses Python's baked-in <code>argparse.ArgumentParser</code> to parse arguments.</p>
+<p>The functions that must be overridden and implemented are:</p>
 <ul>
-<li>Sums two numbers if we pass them with <code>--sum</code></li>
-<li>Subtracts two numbers if we pass them with <code>--subtract</code></li>
-<li>Prints the application's help if we run with <code>--help</code></li>
-<li>Prints the application's version if we run with <code>--version</code></li>
+<li><code>make_parser()</code> must return an instance of <code>argparse.ArgumentParser</code> configured for your project.</li>
+<li><code>register_tasks()</code> must return the ordered list of <code>Task</code> classes to be considered for invocation.</li>
+</ul>
+<h3><code>cline.Task[TTaskArgs]</code> abstract class<a id="clinetaskttaskargs-abstract-class"></a></h3>
+<p>The <code>Task</code> abstract class represents a type of work that can be invoked via the command line.</p>
+<p><code>Task</code> separates the two concerns of:</p>
+<ol>
+<li>Converting the user-entered command line arguments to strongly-typed arguments</li>
+<li>Operating on strongly-typed arguments</li>
+</ol>
+<p>The <code>TTaskArgs</code> generic type describes a task's strongly-typed arguments.</p>
+<p>The functions that must be overridden and implemented are:</p>
+<ul>
+<li><code>make_args(args: CommandLineArguments)</code> must interrogate the given command line arguments and return strongly-typed arguments. Raise <code>CannotMakeArguments</code> if the given command line arguments cannot be used to prepare this task.</li>
+<li><code>invoke()</code> must perform the task's work then return the shell exit code.</li>
+</ul>
+<p>The following properties are available during invocation:</p>
+<ul>
+<li><code>self.args</code> gets the task's strongly-typed arguments.</li>
+<li><code>self.out</code> gets the output writer.</li>
+</ul>
+<h3><code>cline.CommandLineArguments</code> class<a id="clinecommandlinearguments-class"></a></h3>
+<p>A <code>CommandLineArguments</code> instance will be passed to <code>Task.make_args</code> to help you interpret the user-entered command line arguments.</p>
+<ul>
+<li><code>assert_true(key: str)</code> asserts that the command line flag is truthy. Raises <code>CannotMakeArguments</code> if not.</li>
+<li><code>get_bool(key: str, default: Optional[bool] = None)</code> gets the boolean value of the given argument. If the argument isn't set to a boolean value and a default value isn't specified then <code>CannotMakeArguments</code> is raised.</li>
+<li><code>get_integer(key: str)</code> gets the integer value of the given argument. If the argument isn't set to a integer value then <code>CannotMakeArguments</code> is raised.</li>
+<li><code>get_string(key: str)</code> gets the string value of the given argument. If the argument isn't set to a string value then <code>CannotMakeArguments</code> is raised.</li>
 </ul>
 <h2>Acknowledgements<a id="acknowledgements"></a></h2>
 <ul>

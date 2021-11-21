@@ -11,8 +11,7 @@ from cline.exceptions import (
     UserNeedsHelp,
     UserNeedsVersion,
 )
-from cline.tasks import AnyTask, HelpTask, VersionTask
-from cline.tasks.task import AnyTaskType
+from cline.tasks import AnyTask, AnyTaskType, HelpTask, VersionTask
 
 RegisteredTasks = List[AnyTaskType]
 

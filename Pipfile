@@ -5,7 +5,7 @@ name = "pypi"
 
 [dev-packages]
 black = "==21.10b0"
-edition = "==1.0.0a7"
+edition = "==1.0.0a9"
 flake8 = "*"
 isort = "*"
 mypy = "*"
@@ -19,5 +19,6 @@ yamllint = "*"
 python_version = "3.10"
 
 [scripts]
+build = "./scripts/build.sh"
 lint = "./scripts/lint.sh"
 test = "./scripts/test.sh"
