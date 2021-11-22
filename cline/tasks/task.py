@@ -2,23 +2,40 @@ from abc import ABC, abstractmethod
 from typing import IO, Any, Generic, Type, TypeVar
 
 from cline.cli_args import CommandLineArguments
-from cline.exceptions import UserNeedsHelp, UserNeedsVersion
 
 TTaskArgs = TypeVar("TTaskArgs")
 
 
 class Task(ABC, Generic[TTaskArgs]):
+    """
+    Abstract base task. All tasks must inherit from this.
+
+    Arguments:
+        args: Strongly-typed task arguments.
+        out:  Output writer.
+    """
+
     def __init__(self, args: TTaskArgs, out: IO[str]) -> None:
         self._args = args
         self._out = out
 
     @property
-    def out(self) -> IO[str]:
-        return self._out
-
-    @property
     def args(self) -> TTaskArgs:
+        """
+        Gets the strongly-typed task arguments.
+        """
+
         return self._args
+
+    @abstractmethod
+    def invoke(self) -> int:
+        """
+        Invokes the task.
+
+        Reads arguments from `self.args`. Writes output to `self.out`.
+
+        Returns the shell exit code.
+        """
 
     @classmethod
     @abstractmethod
@@ -38,30 +55,13 @@ class Task(ABC, Generic[TTaskArgs]):
             Task arguments
         """
 
-    @abstractmethod
-    def invoke(self) -> int:
+    @property
+    def out(self) -> IO[str]:
         """
-        Invokes the task.
-
-        Reads arguments from `self.args`. Writes output to `self.out`.
-
-        Returns the shell exit code.
+        Gets the output writer.
         """
 
-    def safe_invoke(
-        self,
-    ) -> int:
-        try:
-            return self.invoke()
-        except KeyboardInterrupt:
-            return 100
-        except (UserNeedsHelp, UserNeedsVersion):
-            raise
-        except Exception as ex:
-            self.out.write("🔥 ")
-            self.out.write(str(ex))
-            self.out.write("\n")
-            return 101
+        return self._out
 
 
 AnyTask = Task[Any]
