@@ -344,13 +344,26 @@ h2, h3, h4, h5, h6 {
   <body>
     <article>
         <h1>📜 Cline</h1>
-<p><strong>Cline</strong> is a Python package that helps you build command line applications.</p>
-<p><strong>Cline</strong> separates the two concerns of "understanding the command line arguments you receive" and "operating on strongly-typed arguments" and helps you to write clean, testable tasks.</p>
-<p><nav class="toc"><ol><li><a href="#examples">Examples</a><ol><li><a href="#example-1-summing-two-integers">Example 1: Summing two integers</a></li><li><a href="#example-2-adding-support-for-subtraction">Example 2: Adding support for subtraction</a></li><li><a href="#example-3-supporting-help-and-versions">Example 3: Supporting help and versions</a></li><li><a href="#example-4-making-your-package-executable-after-installing">Example 4: Making your package executable after installing</a></li></ol></li><li><a href="#api-reference">API reference</a></li><li><a href="#project">Project</a><ol><li><a href="#contributing">Contributing</a></li><li><a href="#licence">Licence</a></li><li><a href="#author">Author</a></li><li><a href="#acknowledgements">Acknowledgements</a></li></ol></li></ol></nav></p>
+<p><strong>Cline</strong> is a Python package that helps you build command line applications by separating the concerns of <em>understanding the command line arguments you receive</em> and <em>operating on strongly-typed arguments</em>, and helps you to write clean, testable tasks.</p>
+<p><nav class="toc"><ol><li><a href="#getting-started">Getting started</a><ol><li><a href="#installation">Installation</a></li><li><a href="#usage">Usage</a></li></ol></li><li><a href="#examples">Examples</a><ol><li><a href="#example-1-summing-two-integers">Example 1: Summing two integers</a></li><li><a href="#example-2-adding-support-for-subtraction">Example 2: Adding support for subtraction</a></li><li><a href="#example-3-supporting-help-and-versions">Example 3: Supporting help and versions</a></li><li><a href="#example-4-making-your-package-executable-after-installing">Example 4: Making your package executable after installing</a></li></ol></li><li><a href="#project">Project</a><ol><li><a href="#contributing">Contributing</a></li><li><a href="#licence">Licence</a></li><li><a href="#author">Author</a></li><li><a href="#acknowledgements">Acknowledgements</a></li></ol></li></ol></nav></p>
+<h2>Getting started<a id="getting-started"></a></h2>
+<h3>Installation<a id="installation"></a></h3>
+<p>Cline requires <strong>Python 3.8 or later</strong>.</p>
+<p>Install Cline via pip:</p>
+<div class="highlight"><pre><span></span>pip install cline
+</pre></div>
+
+<h3>Usage<a id="usage"></a></h3>
+<ol>
+<li>Create a <code>Cli</code> class to parse arguments and orchestrate tasks.</li>
+<li>Create <code>Task</code> classes to describe the work that your application can perform.</li>
+<li>On startup, invoke your CLI's <code>invoke_and_exit()</code> method. Cline will discover and invoke the most appropriate <code>Task</code> for the given arguments.</li>
+</ol>
+<p>The examples below go into detail.</p>
 <h2>Examples<a id="examples"></a></h2>
 <h3>Example 1: Summing two integers<a id="example-1-summing-two-integers"></a></h3>
 <p><em>The source code for this example is available at <a href="https://github.com/cariad/cline/blob/main/examples/example01">github.com/cariad/cline/blob/main/examples/example01</a>. The tests are in <a href="https://github.com/cariad/cline/blob/main/tests/examples/example01">github.com/cariad/cline/blob/main/tests/examples/example01</a>.</em></p>
-<p>In this example, we'll build an application that sums two integers on the command line then prints the result:</p>
+<p>In this example, we'll build a command line application that sums two integers then prints the result:</p>
 <div class="highlight"><pre><span></span>python -m examples.example01 <span class="m">1</span> <span class="m">3</span>
 </pre></div>
 
@@ -501,12 +514,12 @@ h2, h3, h4, h5, h6 {
 </pre></div>
 
 <p>And that's it! You can now sum integers on the command line:</p>
-<div class="highlight"><pre><span></span>python -m examples.sum <span class="m">1</span> <span class="m">3</span>
+<div class="highlight"><pre><span></span>python -m examples.example01 <span class="m">1</span> <span class="m">3</span>
 </pre></div>
 
 
 
-<pre class="nohighlight thtml"><code class="thtml-code">/home/cariad/cline/.venv/bin/python: No module named examples.sum<br /></code></pre>
+<pre class="nohighlight thtml"><code class="thtml-code">4<br /></code></pre>
 
 
 
@@ -546,7 +559,7 @@ h2, h3, h4, h5, h6 {
 
 <span class="kn">from</span> <span class="nn">cline</span> <span class="kn">import</span> <span class="n">AnyTask</span>
 <span class="kn">from</span> <span class="nn">examples.example01.cli</span> <span class="kn">import</span> <span class="n">ExampleCli</span>
-<span class="kn">from</span> <span class="nn">examples.example01.tasks.sum</span> <span class="kn">import</span> <span class="n">NumberArgs</span><span class="p">,</span> <span class="n">SumTask</span>
+<span class="kn">from</span> <span class="nn">examples.example01.tasks</span> <span class="kn">import</span> <span class="n">NumberArgs</span><span class="p">,</span> <span class="n">SumTask</span>
 
 <span class="nd">@mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span>
     <span class="s2">"args, expect_task, expect_args"</span><span class="p">,</span>
@@ -584,15 +597,23 @@ python -m examples.example02 --sub <span class="m">8</span> <span class="m">5</s
     <span class="n">parser</span> <span class="o">=</span> <span class="n">ArgumentParser</span><span class="p">()</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"first number"</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s2">"?"</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">"b"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"second number"</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s2">"?"</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">"--sub"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"subtracts"</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">"--sum"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"sums"</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">"--sub"</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">"subtract"</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">"--sum"</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">"sum"</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">return</span> <span class="n">parser</span>
 </pre></div>
 
 <p>Note that the new arguments are presented as <code>--sub</code> and <code>--sum</code> here, but their names omit the dashes. The new arguments are named <code>sub</code> and <code>sum</code>.</p>
 <h4>2. Update SumTask to require the "--sum" flag<a id="2-update-sumtask-to-require-the---sum-flag"></a></h4>
 <p>In the previous example, we wanted <code>SumTask</code> to always run if we gave it two numbers. Now we want it to run only if we give it two numbers <em>and</em> the <code>--sum</code> flag.</p>
-<p>We can achieve this simply by calling <code>assert_true()</code> with the name of the flag we want to assert is truthy:</p>
+<p>We can achieve this simply by calling <code>assert_true()</code> in the task's <code>make_args()</code> function, passing the name of the flag we want to assert is truthy:</p>
 <div class="highlight"><pre><span></span><span class="nd">@classmethod</span>
 <span class="k">def</span> <span class="nf">make_args</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">CommandLineArguments</span><span class="p">)</span> <span class="o">-></span> <span class="n">NumberArgs</span><span class="p">:</span>
     <span class="n">args</span><span class="o">.</span><span class="n">assert_true</span><span class="p">(</span><span class="s2">"sum"</span><span class="p">)</span>
@@ -636,13 +657,13 @@ python -m examples.example02 --sub <span class="m">8</span> <span class="m">5</s
 </pre></div>
 
 <p>...and that's it! When your application runs, Cline will try each registered task in order until one is found that accepts the given command line arguments, then executes it:</p>
-<div class="highlight"><pre><span></span>python -m examples.subtract --sum <span class="m">8</span> <span class="m">5</span>
-python -m examples.subtract --sub <span class="m">8</span> <span class="m">5</span>
+<div class="highlight"><pre><span></span>python -m examples.example02 --sum <span class="m">8</span> <span class="m">5</span>
+python -m examples.example02 --sub <span class="m">8</span> <span class="m">5</span>
 </pre></div>
 
 
 
-<pre class="nohighlight thtml"><code class="thtml-code">/home/cariad/cline/.venv/bin/python: No module named examples.subtract<br />/home/cariad/cline/.venv/bin/python: No module named examples.subtract<br /></code></pre>
+<pre class="nohighlight thtml"><code class="thtml-code">13<br />3<br /></code></pre>
 
 
 
@@ -651,12 +672,12 @@ python -m examples.subtract --sub <span class="m">8</span> <span class="m">5</sp
 <p>Cline has baked-in support for printing your application's help and version on the command line.</p>
 <p>Enabling support for help is easy enough: it's already enabled. If Cline cannot find any registered tasks that can handle the given command line arguments then it will print the argument parser's help.</p>
 <p>For example, if we run one of the above examples without specifying any numbers then each task's <code>make_args()</code> call will fail and Cline will fall back to displaying the help:</p>
-<div class="highlight"><pre><span></span>python -m examples.sum
+<div class="highlight"><pre><span></span>python -m examples.example01
 </pre></div>
 
 
 
-<pre class="nohighlight thtml"><code class="thtml-code">/home/cariad/cline/.venv/bin/python: No module named examples.sum<br /></code></pre>
+<pre class="nohighlight thtml"><code class="thtml-code">usage: __main__.py [-h] [a] [b]<br /><br />positional arguments:<br />  a           first number<br />  b           second number<br /><br />options:<br />  -h, --help  show this help message and exit<br /></code></pre>
 
 
 
@@ -665,9 +686,21 @@ python -m examples.subtract --sub <span class="m">8</span> <span class="m">5</sp
     <span class="n">parser</span> <span class="o">=</span> <span class="n">ArgumentParser</span><span class="p">()</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"first number"</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s2">"?"</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">"b"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"second number"</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s2">"?"</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">"--sub"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"subtracts numbers"</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">"--sum"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"sums numbers"</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">"--version"</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"show version"</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">"--sub"</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">"subtracts numbers"</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">"--sum"</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">"sums numbers"</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">"--version"</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">"show version"</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s2">"store_true"</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">return</span> <span class="n">parser</span>
 </pre></div>
 
@@ -682,16 +715,17 @@ python -m examples.subtract --sub <span class="m">8</span> <span class="m">5</sp
     <span class="n">entry</span><span class="p">()</span>
 </pre></div>
 
-<p>Note that this depends on your own implementation of versioning. I use <code>__version__</code> but you don't have to. If your application's version is gettable via a property other than <code>__version__</code> then pass that instead.</p>
-<div class="highlight"><pre><span></span>python -m examples.full --version
+<p>Now you can pass <code>--version</code> on the command line and get your application's version:</p>
+<div class="highlight"><pre><span></span>python -m examples.example03 --version
 </pre></div>
 
 
 
-<pre class="nohighlight thtml"><code class="thtml-code">/home/cariad/cline/.venv/bin/python: No module named examples.full<br /></code></pre>
+<pre class="nohighlight thtml"><code class="thtml-code">1.2.3<br /></code></pre>
 
 
 
+<p>Note that this code depends on your own implementation of versioning. I use <code>__version__</code> but you don't have to. If your application's version is gettable via a property other than <code>__version__</code> then pass that instead.</p>
 <h3>Example 4: Making your package executable after installing<a id="example-4-making-your-package-executable-after-installing"></a></h3>
 <p>This isn't Cline functionality, but I'll preempt the question by answering it now.</p>
 <p>In your <code>setup.py</code> script, pass an <code>entry_points</code> value into <code>setup()</code>:</p>
@@ -712,8 +746,6 @@ python -m examples.subtract --sub <span class="m">8</span> <span class="m">5</sp
 <li><code>bar</code> is your package name</li>
 <li><code>entry</code> is the name of the function to run inside <code>__main__.py</code></li>
 </ul>
-<h2>API reference<a id="api-reference"></a></h2>
-<p>The package is typed and self-documented. If any hints or docstrings are could use some clarity, please raise an issue.</p>
 <h2>Project<a id="project"></a></h2>
 <h3>Contributing<a id="contributing"></a></h3>
 <p>To contribute a bug report, enhancement or feature request, please raise an issue at <a href="https://github.com/cariad/cline/issues">github.com/cariad/cline/issues</a>.</p>
@@ -726,7 +758,7 @@ python -m examples.subtract --sub <span class="m">8</span> <span class="m">5</sp
 <p>Please consider supporting my open source projects by <a href="https://github.com/sponsors/cariad/">sponsoring me on GitHub</a>.</p>
 <h3>Acknowledgements<a id="acknowledgements"></a></h3>
 <ul>
-<li>This documentation was pressed with <a href="https://cariad.github.io/edition/">Edition</a>.</li>
+<li>This documentation was pressed with <a href="https://github.com/cariad/edition">Edition</a>.</li>
 </ul>
     </article>
   </body>
