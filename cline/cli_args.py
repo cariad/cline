@@ -6,6 +6,14 @@ ArgumentsType = Dict[str, Union[str, bool, None]]
 
 
 class CommandLineArguments:
+    """
+    Parsed command line arguments.
+
+    Arguments:
+        known:   Dictionary of known arguments.
+        unknown: List of unknown arguments.
+    """
+
     def __init__(
         self,
         known: Optional[ArgumentsType] = None,
@@ -18,8 +26,8 @@ class CommandLineArguments:
         """
         Asserts that the command line flag `key` is truthy.
 
-        Raises `CommandLineArgumentError` if the argument is not set, not a boolean or
-        not truthy.
+        Raises `CommandLineArgumentError` if the argument is not set, not a
+        boolean or not truthy.
         """
 
         if not self.get_bool(key):
@@ -31,8 +39,8 @@ class CommandLineArguments:
 
         Returns `default` if the argument is not set but `default` is.
 
-        Raises `CommandLineArgumentError` if `default` is not set and the argument is
-        not set or not a boolean.
+        Raises `CommandLineArgumentError` if `default` is not set and the
+        argument is not set or not a boolean.
         """
 
         value = self._known.get(key, None)
@@ -59,7 +67,8 @@ class CommandLineArguments:
         """
         Gets the command line argument `key` as a string.
 
-        Raises `CommandLineArgumentError` if the argument is not set or not a string.
+        Raises `CommandLineArgumentError` if the argument is not set or not a
+        string.
         """
 
         value = self._known.get(key, None)
