@@ -41,9 +41,13 @@ setup(
     name="cline",
     packages=[
         "cline",
+        "cline.cli",
+        "cline.tasks",
     ],
     package_data={
         "cline": ["py.typed"],
+        "cline.cli": ["py.typed"],
+        "cline.tasks": ["py.typed"],
     },
     python_requires=">=3.8",
     url="https://github.com/cariad/cline",

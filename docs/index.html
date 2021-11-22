@@ -375,10 +375,10 @@ h2, h3, h4, h5, h6 {
 
 <h4>1. Create a CLI class with an argument parser<a id="1-create-a-cli-class-with-an-argument-parser"></a></h4>
 <p>For this example, we'll parse the command line arguments with Python's baked-in <code>ArgumentParser</code>. Cline provides an <code>ArgumentParserCli</code> base class for this.</p>
-<p>Create a class named <code>ExampleCli</code> that inherits from <code>cline.cli.ArgumentParserCli</code>. Override <code>make_parser()</code> to return an <code>ArgumentParser</code> that accepts two numbers.</p>
+<p>Create a class named <code>ExampleCli</code> that inherits from <code>cline.ArgumentParserCli</code>. Override <code>make_parser()</code> to return an <code>ArgumentParser</code> that accepts two numbers.</p>
 <p>For example:</p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">ArgumentParser</span>
-<span class="kn">from</span> <span class="nn">cline.cli</span> <span class="kn">import</span> <span class="n">ArgumentParserCli</span>
+<span class="kn">from</span> <span class="nn">cline</span> <span class="kn">import</span> <span class="n">ArgumentParserCli</span>
 
 <span class="k">class</span> <span class="nc">ExampleCli</span><span class="p">(</span><span class="n">ArgumentParserCli</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">make_parser</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-></span> <span class="n">ArgumentParser</span><span class="p">:</span>
@@ -478,7 +478,7 @@ h2, h3, h4, h5, h6 {
 <h4>3. Registering the task with the CLI<a id="3-registering-the-task-with-the-cli"></a></h4>
 <p>Back in your CLI class, override <code>register_tasks()</code> to register <code>SumTask</code>:</p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">ArgumentParser</span>
-<span class="kn">from</span> <span class="nn">cline.cli</span> <span class="kn">import</span> <span class="n">ArgumentParserCli</span>
+<span class="kn">from</span> <span class="nn">cline</span> <span class="kn">import</span> <span class="n">ArgumentParserCli</span>
 <span class="kn">from</span> <span class="nn">examples.example01.sum</span> <span class="kn">import</span> <span class="n">SumTask</span>
 
 <span class="k">class</span> <span class="nc">ExampleCli</span><span class="p">(</span><span class="n">ArgumentParserCli</span><span class="p">):</span>

@@ -10,7 +10,7 @@ Documentation: https://cariad.github.io/cline/
 
 from importlib.resources import open_text
 
-from cline.cli import Cli
+from cline.cli import ArgumentParserCli, Cli, RegisteredTasks
 from cline.cli_args import CommandLineArguments
 from cline.exceptions import CannotMakeArguments
 from cline.tasks import AnyTask, AnyTaskType, Task
@@ -21,8 +21,10 @@ with open_text(__package__, "VERSION") as t:
 __all__ = [
     "AnyTask",
     "AnyTaskType",
+    "ArgumentParserCli",
     "Cli",
     "CommandLineArguments",
     "CannotMakeArguments",
+    "RegisteredTasks",
     "Task",
 ]

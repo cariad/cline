@@ -48,13 +48,13 @@ python -m examples.example01 1 3
 
 For this example, we'll parse the command line arguments with Python's baked-in `ArgumentParser`. Cline provides an `ArgumentParserCli` base class for this.
 
-Create a class named `ExampleCli` that inherits from `cline.cli.ArgumentParserCli`. Override `make_parser()` to return an `ArgumentParser` that accepts two numbers.
+Create a class named `ExampleCli` that inherits from `cline.ArgumentParserCli`. Override `make_parser()` to return an `ArgumentParser` that accepts two numbers.
 
 For example:
 
 ```python
 from argparse import ArgumentParser
-from cline.cli import ArgumentParserCli
+from cline import ArgumentParserCli
 
 class ExampleCli(ArgumentParserCli):
     def make_parser(self) -> ArgumentParser:
@@ -170,7 +170,7 @@ Back in your CLI class, override `register_tasks()` to register `SumTask`:
 
 ```python
 from argparse import ArgumentParser
-from cline.cli import ArgumentParserCli
+from cline import ArgumentParserCli
 from examples.example01.sum import SumTask
 
 class ExampleCli(ArgumentParserCli):
