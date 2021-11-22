@@ -8,11 +8,13 @@ black = "==21.10b0"
 edition = "==1.0.0a9"
 flake8 = "*"
 isort = "*"
+mock = "*"
 mypy = "*"
 pytest = "*"
 pytest-cov = "*"
 shellcheck-py = "*"
 twine = "*"
+types-mock = "*"
 yamllint = "*"
 
 [requires]

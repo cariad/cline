@@ -268,15 +268,15 @@ def test(
 
 ### Example 2: Adding support for subtraction
 
-_The source code for this example is available at [github.com/cariad/cline/blob/main/examples/subtract](https://github.com/cariad/cline/blob/main/examples/subtract). The tests are in [github.com/cariad/cline/blob/main/tests/examples/subtract](https://github.com/cariad/cline/blob/main/tests/examples/subtract)._
+_The source code for this example is available at [github.com/cariad/cline/blob/main/examples/example02](https://github.com/cariad/cline/blob/main/examples/example02). The tests are in [github.com/cariad/cline/blob/main/tests/examples/example02](https://github.com/cariad/cline/blob/main/tests/examples/example02)._
 
 In this example, we'll build on Example 1 to allow integers to be subtracted. We'll add `--sum` and `--sub` flags to describe that we want to do.
 
 For example:
 
 ```bash
-python -m examples.subtract --sum 8 5
-python -m examples.subtract --sub 8 5
+python -m examples.example02 --sum 8 5
+python -m examples.example02 --sub 8 5
 ```
 
 <!--edition-exec as=markdown fence=backticks host=shell range=start-->
@@ -354,8 +354,8 @@ Open your CLI class and register `SubtractTask`:
 ```python
 def register_tasks(self) -> RegisteredTasks:
     return [
-        examples.full.tasks.SubtractTask,
-        examples.full.tasks.SumTask,
+        examples.example02.tasks.SubtractTask,
+        examples.example02.tasks.SumTask,
     ]
 ```
 
@@ -369,15 +369,14 @@ python -m examples.subtract --sub 8 5
 <!--edition-exec as=markdown fence=backticks host=shell range=start-->
 
 ```text
-13
-3
+
 ```
 
 <!--edition-exec range=end-->
 
 ### Example 3: Supporting help and versions
 
-_The source code for this example is available at [github.com/cariad/cline/blob/main/examples/full](https://github.com/cariad/cline/blob/main/examples/full). The tests are in [github.com/cariad/cline/blob/main/tests/examples/full](https://github.com/cariad/cline/blob/main/tests/examples/full)._
+_The source code for this example is available at [github.com/cariad/cline/blob/main/examples/example03](https://github.com/cariad/cline/blob/main/examples/example03). The tests are in [github.com/cariad/cline/blob/main/tests/examples/example03](https://github.com/cariad/cline/blob/main/tests/examples/example03)._
 
 Cline has baked-in support for printing your application's help and version on the command line.
 
@@ -432,7 +431,7 @@ python -m examples.full --version
 <!--edition-exec as=markdown fence=backticks host=shell range=start-->
 
 ```text
-1.2.3
+
 ```
 
 <!--edition-exec range=end-->

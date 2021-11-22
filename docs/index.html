@@ -565,11 +565,11 @@ h2, h3, h4, h5, h6 {
 </pre></div>
 
 <h3>Example 2: Adding support for subtraction<a id="example-2-adding-support-for-subtraction"></a></h3>
-<p><em>The source code for this example is available at <a href="https://github.com/cariad/cline/blob/main/examples/subtract">github.com/cariad/cline/blob/main/examples/subtract</a>. The tests are in <a href="https://github.com/cariad/cline/blob/main/tests/examples/subtract">github.com/cariad/cline/blob/main/tests/examples/subtract</a>.</em></p>
+<p><em>The source code for this example is available at <a href="https://github.com/cariad/cline/blob/main/examples/example02">github.com/cariad/cline/blob/main/examples/example02</a>. The tests are in <a href="https://github.com/cariad/cline/blob/main/tests/examples/example02">github.com/cariad/cline/blob/main/tests/examples/example02</a>.</em></p>
 <p>In this example, we'll build on Example 1 to allow integers to be subtracted. We'll add <code>--sum</code> and <code>--sub</code> flags to describe that we want to do.</p>
 <p>For example:</p>
-<div class="highlight"><pre><span></span>python -m examples.subtract --sum <span class="m">8</span> <span class="m">5</span>
-python -m examples.subtract --sub <span class="m">8</span> <span class="m">5</span>
+<div class="highlight"><pre><span></span>python -m examples.example02 --sum <span class="m">8</span> <span class="m">5</span>
+python -m examples.example02 --sub <span class="m">8</span> <span class="m">5</span>
 </pre></div>
 
 
@@ -630,8 +630,8 @@ python -m examples.subtract --sub <span class="m">8</span> <span class="m">5</sp
 <p>Open your CLI class and register <code>SubtractTask</code>:</p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">register_tasks</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-></span> <span class="n">RegisteredTasks</span><span class="p">:</span>
     <span class="k">return</span> <span class="p">[</span>
-        <span class="n">examples</span><span class="o">.</span><span class="n">full</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">SubtractTask</span><span class="p">,</span>
-        <span class="n">examples</span><span class="o">.</span><span class="n">full</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">SumTask</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">.</span><span class="n">example02</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">SubtractTask</span><span class="p">,</span>
+        <span class="n">examples</span><span class="o">.</span><span class="n">example02</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">SumTask</span><span class="p">,</span>
     <span class="p">]</span>
 </pre></div>
 
@@ -642,12 +642,12 @@ python -m examples.subtract --sub <span class="m">8</span> <span class="m">5</sp
 
 
 
-<pre class="nohighlight thtml"><code class="thtml-code">13<br />3<br /></code></pre>
+<pre class="nohighlight thtml"><code class="thtml-code">/home/cariad/cline/.venv/bin/python: No module named examples.subtract<br />/home/cariad/cline/.venv/bin/python: No module named examples.subtract<br /></code></pre>
 
 
 
 <h3>Example 3: Supporting help and versions<a id="example-3-supporting-help-and-versions"></a></h3>
-<p><em>The source code for this example is available at <a href="https://github.com/cariad/cline/blob/main/examples/full">github.com/cariad/cline/blob/main/examples/full</a>. The tests are in <a href="https://github.com/cariad/cline/blob/main/tests/examples/full">github.com/cariad/cline/blob/main/tests/examples/full</a>.</em></p>
+<p><em>The source code for this example is available at <a href="https://github.com/cariad/cline/blob/main/examples/example03">github.com/cariad/cline/blob/main/examples/example03</a>. The tests are in <a href="https://github.com/cariad/cline/blob/main/tests/examples/example03">github.com/cariad/cline/blob/main/tests/examples/example03</a>.</em></p>
 <p>Cline has baked-in support for printing your application's help and version on the command line.</p>
 <p>Enabling support for help is easy enough: it's already enabled. If Cline cannot find any registered tasks that can handle the given command line arguments then it will print the argument parser's help.</p>
 <p>For example, if we run one of the above examples without specifying any numbers then each task's <code>make_args()</code> call will fail and Cline will fall back to displaying the help:</p>
@@ -688,7 +688,7 @@ python -m examples.subtract --sub <span class="m">8</span> <span class="m">5</sp
 
 
 
-<pre class="nohighlight thtml"><code class="thtml-code">1.2.3<br /></code></pre>
+<pre class="nohighlight thtml"><code class="thtml-code">/home/cariad/cline/.venv/bin/python: No module named examples.full<br /></code></pre>
 
 
 

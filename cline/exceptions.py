@@ -2,10 +2,6 @@ class ClineError(Exception):
     pass
 
 
-class NoAvailableTasks(ClineError):
-    pass
-
-
 class CannotMakeArguments(ClineError):
     pass
 

@@ -1,3 +1,13 @@
+"""
+Cline helps you build command line applications by separating the two concerns
+of "understanding the command line arguments you receive" and "operating on
+strongly-typed arguments", and helps you to write clean, testable tasks.
+
+Homepage: https://github.com/cariad/cline
+
+Documentation: https://cariad.github.io/cline/
+"""
+
 from importlib.resources import open_text
 
 from cline.cli import Cli
