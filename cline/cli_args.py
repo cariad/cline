@@ -22,39 +22,46 @@ class CommandLineArguments:
         self._known = known or {}
         self._unknown = unknown or []
 
-    def assert_string(self, key: str, value: str) -> None:
+    def assert_string(self, arg: str, value: Union[List[str], str]) -> None:
         """
-        Asserts that the argument `key` has string value `value`.
+        Asserts that the argument `arg` matches the string value or is in the
+        list of `value`.
 
-        Raises `CannotMakeArguments` if the argument is not set or does not
-        match.
+        Raises:
+            CannotMakeArguments: If the argument is not set or does not match.
         """
 
-        if self.get_string(key) != value:
+        actual = self.get_string(arg)
+
+        if isinstance(value, str) and actual != value:
             raise CannotMakeArguments()
 
-    def assert_true(self, key: str) -> None:
-        """
-        Asserts that the command line flag `key` is truthy.
-
-        Raises `CannotMakeArguments` if the argument is not set, not a boolean
-        or not truthy.
-        """
-
-        if not self.get_bool(key):
+        if actual not in value:
             raise CannotMakeArguments()
 
-    def get_bool(self, key: str, default: Optional[bool] = None) -> bool:
+    def assert_true(self, arg: str) -> None:
         """
-        Gets the command line argument `key` as a boolean.
+        Asserts that the command line flag `arg` is truthy.
+
+        Raises:
+            CannotMakeArguments: If the argument is not a boolean or not truthy.
+        """
+
+        if not self.get_bool(arg):
+            raise CannotMakeArguments()
+
+    def get_bool(self, arg: str, default: Optional[bool] = None) -> bool:
+        """
+        Gets the command line argument `arg` as a boolean.
 
         Returns `default` if the argument is not set but `default` is.
 
-        Raises `CannotMakeArguments` if `default` is not set and the argument is
-        not set or not a boolean.
+        Raises:
+            CannotMakeArguments: If the argument is not a boolean and a default
+            is not set.
         """
 
-        value = self._known.get(key, None)
+        value = self._known.get(arg, None)
 
         if value is None and default is not None:
             return default
@@ -62,27 +69,28 @@ class CommandLineArguments:
             raise CannotMakeArguments()
         return value
 
-    def get_integer(self, key: str) -> int:
+    def get_integer(self, arg: str) -> int:
         """
-        Gets the command line argument `key` as an integer.
+        Gets the command line argument `arg` as an integer.
 
-        Raises `CannotMakeArguments` if the argument is not set or not an
-        integer.
+        Raises:
+            CannotMakeArguments: f the argument is not an integer.
         """
 
         try:
-            return int(self.get_string(key))
+            return int(self.get_string(arg))
         except ValueError:
             raise CannotMakeArguments()
 
-    def get_string(self, key: str) -> str:
+    def get_string(self, arg: str) -> str:
         """
-        Gets the command line argument `key` as a string.
+        Gets the command line argument `arg` as a string.
 
-        Raises `CannotMakeArguments` if the argument is not set or not a string.
+        Raises:
+            CannotMakeArguments: If the argument is not a string.
         """
 
-        value = self._known.get(key, None)
+        value = self._known.get(arg, None)
         if not isinstance(value, str):
             raise CannotMakeArguments()
         return value
