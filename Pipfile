@@ -5,7 +5,7 @@ name = "pypi"
 
 [dev-packages]
 black = "==21.10b0"
-edition = "==1.0.0a9"
+edition = "==1.0.0a10"
 flake8 = "*"
 isort = "*"
 mock = "*"
