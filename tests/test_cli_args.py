@@ -1,27 +1,31 @@
-from pytest import raises
+from typing import List, Union
+
+from pytest import mark, raises
 
 from cline import CommandLineArguments
 from cline.exceptions import CannotMakeArguments
 
 
-def test_assert_string__ok() -> None:
+@mark.parametrize("value", ["bar", ["woo", "bar"]])
+def test_assert_string_ok(value: Union[List[str], str]) -> None:
     args = CommandLineArguments(
         {
             "foo": "bar",
         }
     )
-    args.assert_string(key="foo", value="bar")
+    args.assert_string(arg="foo", value=value)
     assert True
 
 
-def test_assert_string__mismatch() -> None:
+@mark.parametrize("value", ["woo", ["woo", "boo"]])
+def test_assert_string__fail(value: Union[List[str], str]) -> None:
     args = CommandLineArguments(
         {
             "foo": "bar",
         }
     )
     with raises(CannotMakeArguments):
-        args.assert_string(key="foo", value="woo")
+        args.assert_string(arg="foo", value=value)
 
 
 def test_get_bool__none_with_no_default() -> None:
