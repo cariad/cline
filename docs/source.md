@@ -1,3 +1,9 @@
+---
+author: Cariad Eccleston
+favicon-emoji: 📜
+title: Cline
+---
+
 # 📜 Cline
 
 **Cline** is a Python package that helps you build command line applications.
@@ -18,13 +24,7 @@ In this example, we'll build an application that sums two integers on the comman
 python -m examples.example01 1 3
 ```
 
-<!--edition-exec as=markdown fence=backticks host=shell range=start-->
-
-```text
-4
-```
-
-<!--edition-exec range=end-->
+<!--edition-exec-->
 
 #### 1. Create a CLI class with an argument parser
 
@@ -196,13 +196,7 @@ And that's it! You can now sum integers on the command line:
 python -m examples.sum 1 3
 ```
 
-<!--edition-exec as=markdown fence=backticks host=shell range=start-->
-
-```text
-
-```
-
-<!--edition-exec range=end-->
+<!--edition-exec-->
 
 #### 5. Unit testing
 
@@ -279,14 +273,7 @@ python -m examples.example02 --sum 8 5
 python -m examples.example02 --sub 8 5
 ```
 
-<!--edition-exec as=markdown fence=backticks host=shell range=start-->
-
-```text
-13
-3
-```
-
-<!--edition-exec range=end-->
+<!--edition-exec-->
 
 #### 1. Add the new flags to the argument parser
 
@@ -366,13 +353,7 @@ python -m examples.subtract --sum 8 5
 python -m examples.subtract --sub 8 5
 ```
 
-<!--edition-exec as=markdown fence=backticks host=shell range=start-->
-
-```text
-
-```
-
-<!--edition-exec range=end-->
+<!--edition-exec-->
 
 ### Example 3: Supporting help and versions
 
@@ -388,13 +369,7 @@ For example, if we run one of the above examples without specifying any numbers 
 python -m examples.sum
 ```
 
-<!--edition-exec as=markdown fence=backticks host=shell range=start-->
-
-```text
-
-```
-
-<!--edition-exec range=end-->
+<!--edition-exec-->
 
 Adding support for version printing is a two-step process. First, add a `--version` flag to your argument parser:
 
@@ -428,13 +403,7 @@ Note that this depends on your own implementation of versioning. I use `__versio
 python -m examples.full --version
 ```
 
-<!--edition-exec as=markdown fence=backticks host=shell range=start-->
-
-```text
-
-```
-
-<!--edition-exec range=end-->
+<!--edition-exec-->
 
 ### Example 4: Making your package executable after installing
 
