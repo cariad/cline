@@ -22,12 +22,23 @@ class CommandLineArguments:
         self._known = known or {}
         self._unknown = unknown or []
 
+    def assert_string(self, key: str, value: str) -> None:
+        """
+        Asserts that the argument `key` has string value `value`.
+
+        Raises `CannotMakeArguments` if the argument is not set or does not
+        match.
+        """
+
+        if self.get_string(key) != value:
+            raise CannotMakeArguments()
+
     def assert_true(self, key: str) -> None:
         """
         Asserts that the command line flag `key` is truthy.
 
-        Raises `CommandLineArgumentError` if the argument is not set, not a
-        boolean or not truthy.
+        Raises `CannotMakeArguments` if the argument is not set, not a boolean
+        or not truthy.
         """
 
         if not self.get_bool(key):
@@ -39,8 +50,8 @@ class CommandLineArguments:
 
         Returns `default` if the argument is not set but `default` is.
 
-        Raises `CommandLineArgumentError` if `default` is not set and the
-        argument is not set or not a boolean.
+        Raises `CannotMakeArguments` if `default` is not set and the argument is
+        not set or not a boolean.
         """
 
         value = self._known.get(key, None)
@@ -55,7 +66,8 @@ class CommandLineArguments:
         """
         Gets the command line argument `key` as an integer.
 
-        Raises `CommandLineArgumentError` if the argument is not set or not an integer.
+        Raises `CannotMakeArguments` if the argument is not set or not an
+        integer.
         """
 
         try:
@@ -67,8 +79,7 @@ class CommandLineArguments:
         """
         Gets the command line argument `key` as a string.
 
-        Raises `CommandLineArgumentError` if the argument is not set or not a
-        string.
+        Raises `CannotMakeArguments` if the argument is not set or not a string.
         """
 
         value = self._known.get(key, None)
