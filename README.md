@@ -1,10 +1,28 @@
 # 📜 Cline
 
-**Cline** is a Python package that helps you build command line applications.
-
-**Cline** separates the two concerns of "understanding the command line arguments you receive" and "operating on strongly-typed arguments" and helps you to write clean, testable tasks.
+**Cline** is a Python package that helps you build command line applications by separating the concerns of _understanding the command line arguments you receive_ and _operating on strongly-typed arguments_, and helps you to write clean, testable tasks.
 
 <edition value="toc" />
+
+## Getting started
+
+### Installation
+
+Cline requires **Python 3.8 or later**.
+
+Install Cline via pip:
+
+```bash
+pip install cline
+```
+
+### Usage
+
+1. Create a `Cli` class to parse arguments and orchestrate tasks.
+1. Create `Task` classes to describe the work that your application can perform.
+1. On startup, invoke your CLI's `invoke_and_exit()` method. Cline will discover and invoke the most appropriate `Task` for the given arguments.
+
+The examples below go into detail.
 
 ## Examples
 
@@ -12,7 +30,7 @@
 
 _The source code for this example is available at [github.com/cariad/cline/blob/main/examples/example01](https://github.com/cariad/cline/blob/main/examples/example01). The tests are in [github.com/cariad/cline/blob/main/tests/examples/example01](https://github.com/cariad/cline/blob/main/tests/examples/example01)._
 
-In this example, we'll build an application that sums two integers on the command line then prints the result:
+In this example, we'll build a command line application that sums two integers then prints the result:
 
 ```bash
 python -m examples.example01 1 3
@@ -193,13 +211,13 @@ if __name__ == "__main__":
 And that's it! You can now sum integers on the command line:
 
 ```bash
-python -m examples.sum 1 3
+python -m examples.example01 1 3
 ```
 
 <!--edition-exec as=markdown fence=backticks host=shell range=start-->
 
 ```text
-
+4
 ```
 
 <!--edition-exec range=end-->
@@ -248,7 +266,7 @@ from pytest import mark
 
 from cline import AnyTask
 from examples.example01.cli import ExampleCli
-from examples.example01.tasks.sum import NumberArgs, SumTask
+from examples.example01.tasks import NumberArgs, SumTask
 
 @mark.parametrize(
     "args, expect_task, expect_args",
@@ -297,8 +315,16 @@ def make_parser(self) -> ArgumentParser:
     parser = ArgumentParser()
     parser.add_argument("a", help="first number", nargs="?")
     parser.add_argument("b", help="second number", nargs="?")
-    parser.add_argument("--sub", help="subtracts", action="store_true")
-    parser.add_argument("--sum", help="sums", action="store_true")
+    parser.add_argument(
+        "--sub",
+        help="subtract",
+        action="store_true",
+    )
+    parser.add_argument(
+        "--sum",
+        help="sum",
+        action="store_true",
+    )
     return parser
 ```
 
@@ -308,7 +334,7 @@ Note that the new arguments are presented as `--sub` and `--sum` here, but their
 
 In the previous example, we wanted `SumTask` to always run if we gave it two numbers. Now we want it to run only if we give it two numbers _and_ the `--sum` flag.
 
-We can achieve this simply by calling `assert_true()` with the name of the flag we want to assert is truthy:
+We can achieve this simply by calling `assert_true()` in the task's `make_args()` function, passing the name of the flag we want to assert is truthy:
 
 ```python
 @classmethod
@@ -362,14 +388,15 @@ def register_tasks(self) -> RegisteredTasks:
 ...and that's it! When your application runs, Cline will try each registered task in order until one is found that accepts the given command line arguments, then executes it:
 
 ```bash
-python -m examples.subtract --sum 8 5
-python -m examples.subtract --sub 8 5
+python -m examples.example02 --sum 8 5
+python -m examples.example02 --sub 8 5
 ```
 
 <!--edition-exec as=markdown fence=backticks host=shell range=start-->
 
 ```text
-
+13
+3
 ```
 
 <!--edition-exec range=end-->
@@ -385,13 +412,20 @@ Enabling support for help is easy enough: it's already enabled. If Cline cannot 
 For example, if we run one of the above examples without specifying any numbers then each task's `make_args()` call will fail and Cline will fall back to displaying the help:
 
 ```bash
-python -m examples.sum
+python -m examples.example01
 ```
 
 <!--edition-exec as=markdown fence=backticks host=shell range=start-->
 
 ```text
+usage: __main__.py [-h] [a] [b]
 
+positional arguments:
+  a           first number
+  b           second number
+
+options:
+  -h, --help  show this help message and exit
 ```
 
 <!--edition-exec range=end-->
@@ -403,9 +437,21 @@ def make_parser(self) -> ArgumentParser:
     parser = ArgumentParser()
     parser.add_argument("a", help="first number", nargs="?")
     parser.add_argument("b", help="second number", nargs="?")
-    parser.add_argument("--sub", help="subtracts numbers", action="store_true")
-    parser.add_argument("--sum", help="sums numbers", action="store_true")
-    parser.add_argument("--version", help="show version", action="store_true")
+    parser.add_argument(
+        "--sub",
+        help="subtracts numbers",
+        action="store_true",
+    )
+    parser.add_argument(
+        "--sum",
+        help="sums numbers",
+        action="store_true",
+    )
+    parser.add_argument(
+        "--version",
+        help="show version",
+        action="store_true",
+    )
     return parser
 ```
 
@@ -422,19 +468,21 @@ if __name__ == "__main__":
     entry()
 ```
 
-Note that this depends on your own implementation of versioning. I use `__version__` but you don't have to. If your application's version is gettable via a property other than `__version__` then pass that instead.
+Now you can pass `--version` on the command line and get your application's version:
 
 ```bash
-python -m examples.full --version
+python -m examples.example03 --version
 ```
 
 <!--edition-exec as=markdown fence=backticks host=shell range=start-->
 
 ```text
-
+1.2.3
 ```
 
 <!--edition-exec range=end-->
+
+Note that this code depends on your own implementation of versioning. I use `__version__` but you don't have to. If your application's version is gettable via a property other than `__version__` then pass that instead.
 
 ### Example 4: Making your package executable after installing
 
@@ -460,10 +508,6 @@ Note that:
 - `bar` is your package name
 - `entry` is the name of the function to run inside `__main__.py`
 
-## API reference
-
-The package is typed and self-documented. If any hints or docstrings are could use some clarity, please raise an issue.
-
 ## Project
 
 ### Contributing
@@ -486,4 +530,4 @@ Please consider supporting my open source projects by [sponsoring me on GitHub](
 
 ### Acknowledgements
 
-- This documentation was pressed with [Edition](https://cariad.github.io/edition/).
+- This documentation was pressed with [Edition](https://github.com/cariad/edition).
