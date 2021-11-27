@@ -82,15 +82,27 @@ class CommandLineArguments:
         except ValueError:
             raise CannotMakeArguments()
 
-    def get_string(self, arg: str) -> str:
+    def get_string(self, arg: str, default: Optional[str] = None) -> str:
         """
         Gets the command line argument `arg` as a string.
 
+        Arguments:
+            arg:     Argument name
+            default: Default value to return if the argument is not set.
+
         Raises:
-            CannotMakeArguments: If the argument is not a string.
+            CannotMakeArguments: If neither the argument nor a default are set.
+
+        Returns:
+            Argument value if set, otherwise default if set.
         """
 
         value = self._known.get(arg, None)
+
+        if value is None and default is not None:
+            return default
+
         if not isinstance(value, str):
             raise CannotMakeArguments()
+
         return value
