@@ -2,7 +2,7 @@ from typing import Dict, List, Optional, Union
 
 from cline.exceptions import CannotMakeArguments
 
-ArgumentsType = Dict[str, Union[str, bool, None]]
+ArgumentsType = Dict[str, Union[bool, List[str], str, None]]
 
 
 class CommandLineArguments:
@@ -81,6 +81,31 @@ class CommandLineArguments:
             return int(self.get_string(arg))
         except ValueError:
             raise CannotMakeArguments()
+
+    def get_list(self, arg: str, default: Optional[List[str]] = None) -> List[str]:
+        """
+        Gets the command line argument `arg` as a list of strings.
+
+        Arguments:
+            arg:     Argument name
+            default: Default value to return if the argument is not set.
+
+        Raises:
+            CannotMakeArguments: If neither the argument nor a default are set.
+
+        Returns:
+            Argument value if set, otherwise default if set.
+        """
+
+        value = self._known.get(arg, None)
+
+        if value is None and default is not None:
+            return default
+
+        if not isinstance(value, list):
+            raise CannotMakeArguments()
+
+        return value
 
     def get_string(self, arg: str, default: Optional[str] = None) -> str:
         """
