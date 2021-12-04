@@ -44,6 +44,22 @@ def test_get_integer__not_parseable() -> None:
         args.get_integer("foo")
 
 
+def test_get_list() -> None:
+    args = CommandLineArguments({"foo": ["bar"]})
+    assert args.get_list("foo") == ["bar"]
+
+
+def test_get_list__default() -> None:
+    args = CommandLineArguments()
+    assert args.get_list("foo", ["bar"]) == ["bar"]
+
+
+def test_get_list__none() -> None:
+    args = CommandLineArguments()
+    with raises(CannotMakeArguments):
+        args.get_list("foo")
+
+
 def test_get_string__default() -> None:
     args = CommandLineArguments()
     assert args.get_string("foo", "bar") == "bar"
