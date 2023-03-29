@@ -11,13 +11,13 @@ class CliProtocol(Protocol, Generic[TParser]):
         """
 
     @property
-    def arg_parser(self) -> TParser:
-        """
-        Gets the argument parser.
-        """
-
-    @property
     def out(self) -> IO[str]:
         """
         Gets `stdout` or equivalent output writer.
+        """
+
+    @property
+    def parser(self) -> TParser:
+        """
+        Gets the argument parser.
         """

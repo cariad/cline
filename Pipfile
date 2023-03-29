@@ -4,8 +4,8 @@ verify_ssl = true
 name = "pypi"
 
 [dev-packages]
-black = "==21.10b0"
-edition = "==1.0.0a10"
+black = "*"
+edition = "==1.0.0a14"
 flake8 = "*"
 isort = "*"
 mock = "*"
