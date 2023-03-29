@@ -8,7 +8,6 @@ jobs:
     docker:
       - image: cimg/python:3.10.0
     environment:
-    resource_class: xlarge
     steps:
       - checkout
       - restore_cache:
@@ -25,7 +24,6 @@ jobs:
     docker:
       - image: cimg/python:3.10.0
     environment:
-    resource_class: xlarge
     steps:
       - checkout
       - restore_cache:
@@ -46,7 +44,6 @@ jobs:
     docker:
       - image: cimg/python:3.10.0
     environment:
-    resource_class: xlarge
     steps:
       - checkout
       - restore_cache:
@@ -59,7 +56,6 @@ jobs:
     docker:
       - image: cimg/python:3.10.0
     environment:
-    resource_class: xlarge
     steps:
       - checkout
       - restore_cache:
@@ -72,7 +68,6 @@ jobs:
     docker:
       - image: cimg/python:3.10.0
     environment:
-    resource_class: xlarge
     steps:
       - checkout
       - restore_cache:
@@ -93,7 +88,6 @@ jobs:
     docker:
       - image: cimg/python:3.10.0
     environment:
-    resource_class: xlarge
     steps:
       - checkout
       - restore_cache:
@@ -106,7 +100,6 @@ jobs:
     docker:
       - image: cimg/python:3.10.0
     environment:
-    resource_class: xlarge
     steps:
       - checkout
       - restore_cache:
@@ -127,7 +120,6 @@ jobs:
     docker:
       - image: cimg/python:3.10.0
     environment:
-    resource_class: xlarge
     steps:
       - checkout
       - restore_cache:
@@ -140,7 +132,6 @@ jobs:
     docker:
       - image: cimg/python:3.10.0
     environment:
-    resource_class: xlarge
     steps:
       - checkout
       - restore_cache:
@@ -155,7 +146,6 @@ jobs:
     docker:
       - image: cimg/python:3.10.0
     environment:
-    resource_class: xlarge
     steps:
       - checkout
       - restore_cache:
