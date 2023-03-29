@@ -6,7 +6,7 @@ if [[ -n ${1:-} ]]; then
 elif [[ -n ${CIRCLE_TAG:-} ]]; then
   version=${CIRCLE_TAG}
 else
-  version="-1.-1.-1"
+  version="0.0.0"
 fi
 
 echo "${version}" > cline/VERSION
